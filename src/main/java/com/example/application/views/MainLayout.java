@@ -6,7 +6,10 @@ import com.example.application.data.entity.User;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.addnewdog.AddnewdogView;
 import com.example.application.views.allwalks.AllwalksView;
-import com.example.application.views.dogs.DogsView;
+//import com.example.application.views.dogs.DogsListAndForm;
+//import com.example.application.views.dogs.DogsView;
+//import com.example.application.views.dogs.MainView;
+import com.example.application.views.dogs.MainView;
 import com.example.application.views.gallery.GalleryView;
 import com.example.application.views.myaccount.MyaccountView;
 import com.example.application.views.mydogshelter.MydogshelterView;
@@ -95,8 +98,8 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("My account", MyaccountView.class, "la la-user"));
 
         }
-        if (accessChecker.hasAccess(DogsView.class)) {
-            nav.addItem(new AppNavItem("Dogs", DogsView.class, "la la-filter"));
+        if (accessChecker.hasAccess(MainView.class)) {
+            nav.addItem(new AppNavItem("Dogs", MainView.class, "la la-filter"));
 
         }
         if (accessChecker.hasAccess(AddnewdogView.class)) {

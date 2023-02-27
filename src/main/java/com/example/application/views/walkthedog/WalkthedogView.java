@@ -1,6 +1,9 @@
 package com.example.application.views.walkthedog;
 
+import com.example.application.data.entity.ImageDto;
+import com.example.application.data.service.GalleryService;
 import com.example.application.views.MainLayout;
+import com.example.application.views.gallery.GalleryViewCard;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.html.H2;
@@ -23,6 +26,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility.MaxWidth;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 import javax.annotation.security.PermitAll;
+import java.util.List;
 
 @PageTitle("Walk the dog")
 @Route(value = "walks/create", layout = MainLayout.class)
@@ -31,22 +35,28 @@ public class WalkthedogView extends Main implements HasComponents, HasStyle {
 
     private OrderedList imageContainer;
 
-    public WalkthedogView() {
+    private GalleryService galleryService;
+
+
+
+    public WalkthedogView(GalleryService galleryService) {
+        this.galleryService=galleryService;
         constructUI();
 
-        imageContainer.add(new WalkthedogViewCard("Snow mountains under stars",
-                "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"));
-        imageContainer.add(new WalkthedogViewCard("Snow covered mountain",
-                "https://images.unsplash.com/photo-1512273222628-4daea6e55abb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"));
-        imageContainer.add(new WalkthedogViewCard("River between mountains",
-                "https://images.unsplash.com/photo-1536048810607-3dc7f86981cb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80"));
-        imageContainer.add(new WalkthedogViewCard("Milky way on mountains",
-                "https://images.unsplash.com/photo-1515705576963-95cad62945b6?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80"));
-        imageContainer.add(new WalkthedogViewCard("Mountain with fog",
-                "https://images.unsplash.com/photo-1513147122760-ad1d5bf68cdb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"));
-        imageContainer.add(new WalkthedogViewCard("Mountain at night",
-                "https://images.unsplash.com/photo-1562832135-14a35d25edef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=815&q=80"));
 
+
+        List<ImageDto> all = galleryService.fetchImages();
+        all.stream().forEach(element -> {
+            imageContainer.add(new GalleryViewCard("", element.getUrl()));
+//            Image image=new Image(element.getUrl(), "no url");
+//            // com.vaadin.flow.component.html.Image image =
+//            //new com.vaadin.flow.component.html.Image(element.getUrl(), "no url");
+//            image.setMaxHeight(40, Unit.PERCENTAGE);
+//            image.setMaxWidth(40, Unit.PERCENTAGE);
+            //setHorizontalComponentAlignment(Alignment.CENTER);
+            //setAlignItems(FlexComponent.Alignment.CENTER);
+            // add(image);
+        } );
     }
 
     private void constructUI() {
@@ -57,9 +67,9 @@ public class WalkthedogView extends Main implements HasComponents, HasStyle {
         container.addClassNames(AlignItems.CENTER, JustifyContent.BETWEEN);
 
         VerticalLayout headerContainer = new VerticalLayout();
-        H2 header = new H2("Beautiful photos");
+        H2 header = new H2("Choose the dog and take him for a walk");
         header.addClassNames(Margin.Bottom.NONE, Margin.Top.XLARGE, FontSize.XXXLARGE);
-        Paragraph description = new Paragraph("Royalty free photos and pictures, courtesy of Unsplash");
+        Paragraph description = new Paragraph("Just click CREATE WALK button");
         description.addClassNames(Margin.Bottom.XLARGE, Margin.Top.NONE, TextColor.SECONDARY);
         headerContainer.add(header, description);
 
