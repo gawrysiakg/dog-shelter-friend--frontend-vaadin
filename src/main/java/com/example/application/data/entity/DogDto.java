@@ -15,4 +15,5 @@ public class DogDto {
     private String name;
     private String breed;
     private boolean inShelter;
+
 }

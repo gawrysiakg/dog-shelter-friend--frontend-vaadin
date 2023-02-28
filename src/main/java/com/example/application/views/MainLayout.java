@@ -4,7 +4,7 @@ import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
 import com.example.application.data.entity.User;
 import com.example.application.security.AuthenticatedUser;
-import com.example.application.views.addnewdog.AddnewdogView;
+import com.example.application.views.volunteers.VolunteerView;
 import com.example.application.views.allwalks.AllwalksView;
 //import com.example.application.views.dogs.DogsListAndForm;
 //import com.example.application.views.dogs.DogsView;
@@ -15,7 +15,8 @@ import com.example.application.views.myaccount.MyaccountView;
 import com.example.application.views.mydogshelter.MydogshelterView;
 import com.example.application.views.mywalks.MywalksView;
 import com.example.application.views.newwalk.NewwalkView;
-import com.example.application.views.runningwalks.RunningwalksView;
+import com.example.application.views.volunteers.edit.MainVolunteersView;
+import com.example.application.views.volunteers.edit.VolunteersEditView;
 import com.example.application.views.walksadd.WalksaddView;
 import com.example.application.views.walkthedog.WalkthedogView;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -102,12 +103,12 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("Dogs", MainView.class, "la la-filter"));
 
         }
-        if (accessChecker.hasAccess(AddnewdogView.class)) {
-            nav.addItem(new AppNavItem("Add  new dog", AddnewdogView.class, "la la-align-justify"));
+        if (accessChecker.hasAccess(VolunteerView.class)) {
+            nav.addItem(new AppNavItem("Volunteers", VolunteerView.class, "la la-align-justify"));
 
         }
-        if (accessChecker.hasAccess(RunningwalksView.class)) {
-            nav.addItem(new AppNavItem("Running walks", RunningwalksView.class, "la la-align-justify"));
+        if (accessChecker.hasAccess(MainVolunteersView.class)) {
+            nav.addItem(new AppNavItem("Volunteers edit", MainVolunteersView.class, "la la-align-justify"));
 
         }
         if (accessChecker.hasAccess(AllwalksView.class)) {

@@ -39,11 +39,11 @@ public class WalkthedogViewCard extends ListItem {
 
         Span header = new Span();
         header.addClassNames(FontSize.XLARGE, FontWeight.SEMIBOLD);
-        header.setText("Title");
+        header.setText("Dog name:");
 
         Span subtitle = new Span();
         subtitle.addClassNames(FontSize.SMALL, TextColor.SECONDARY);
-        subtitle.setText("Card subtitle");
+        subtitle.setText("About the dog...");
 
         Paragraph description = new Paragraph(
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.");
@@ -51,7 +51,8 @@ public class WalkthedogViewCard extends ListItem {
 
         Span badge = new Span();
         badge.getElement().setAttribute("theme", "badge");
-        badge.setText("Label");
+        badge.setText("Walk the dog");
+       // badge.addClickListener( )
 
         add(div, header, subtitle, description, badge);
 

@@ -18,14 +18,14 @@ public class MydogshelterView extends VerticalLayout {
     public MydogshelterView() {
         setSpacing(false);
 
-        Image img = new Image("images/empty-plant.png", "placeholder plant");
-        img.setWidth("200px");
+        Image img = new Image("images/dogs-background.png", "placeholder plant");
+        img.setWidth("800px");
         add(img);
 
-        H2 header = new H2("This place intentionally left empty");
+        H2 header = new H2("Take us for a walk!");
         header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
         add(header);
-        add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
+        add(new Paragraph("We will all have fun:)"));
 
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);

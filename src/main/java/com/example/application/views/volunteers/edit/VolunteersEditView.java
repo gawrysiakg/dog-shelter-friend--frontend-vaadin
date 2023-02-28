@@ -1,7 +1,9 @@
-package com.example.application.views.dogs;
+package com.example.application.views.volunteers.edit;
 
 import com.example.application.data.entity.DogDto;
+import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.DogService;
+import com.example.application.data.service.VolunteerService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -11,30 +13,31 @@ import com.vaadin.flow.data.binder.Binder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DogsView extends FormLayout {
+public class VolunteersEditView extends FormLayout {
 
     private TextField id = new TextField("id");
     private TextField name = new TextField("name");
-    private TextField breed = new TextField("breed");
-    private TextField inShelter = new TextField("inShelter");
+    private TextField password = new TextField("password");
+    private TextField email = new TextField("email");
+    private TextField role = new TextField("role");
     private Button save = new Button("Save");
     private Button delete = new Button("Delete");
-    private Binder<DogDto> binder = new Binder<DogDto>(DogDto.class);
+    private Binder<VolunteerDto> binder = new Binder<VolunteerDto>(VolunteerDto.class);
     //Jak działa binder? W ogólnym ujęciu mapuje on zmienne z formularza ze zmiennymi w obiekcie typu Book.
     // Jeśli nazwy zmiennych nie są takie same w dwóch obiektach, możemy użyć adnotacji @PropertyId nad polem ]
     // w formularzu – należy wskazać nazwę zmiennej z klasy, do której chcemy zmapować dane pole.
 
-    private DogService service;
-    private MainView mainView;
+    private VolunteerService service;
+    private MainVolunteersView mainVolunteersView;
 
 
-        public DogsView(MainView mainView, DogService service){
-            this.mainView = mainView;
-            this.service = service;
+    public VolunteersEditView(MainVolunteersView mainVolunteersView, VolunteerService service){
+        this.mainVolunteersView = mainVolunteersView;
+        this.service = service;
 
         HorizontalLayout buttons = new HorizontalLayout(save, delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        add(id, name, breed, inShelter, buttons); //type,
+        add(id, name, password, email, role, buttons);
         binder.bindInstanceFields(this);
         save.addClickListener(event -> save());
         delete.addClickListener(event -> delete());
@@ -45,23 +48,23 @@ public class DogsView extends FormLayout {
 
 
     private void save() {
-        DogDto dog = binder.getBean();
-        service.addDog(dog);
-        mainView.refresh();
-        setDog(null);
+        VolunteerDto dto =binder.getBean();
+        service.createVolunteer(dto);
+        mainVolunteersView.refresh();
+        setVolunteer(null);
     }
 
     private void delete() {
-        DogDto dog = binder.getBean();
-        service.deleteDog(dog.getId());
-        mainView.refresh(); //grid.setItems(dogService.getAllDogs());
-        setDog(null);
+        VolunteerDto dto = binder.getBean();
+        service.deleteUser(dto.getId());
+        mainVolunteersView.refresh();
+        setVolunteer(null);
     }
 
-    public void setDog(DogDto dog) {
-        binder.setBean(dog);
-
-        if (dog == null) {
+    public void setVolunteer(VolunteerDto dto) {
+        binder.setBean(dto);
+        //service.updateUser(dto);
+        if (dto == null) {
             setVisible(false);
         } else {
             setVisible(true);

@@ -12,14 +12,14 @@ import lombok.Setter;
 public class VolunteerDto {
 
     private Long id;
-    //private String firstName;
-   // private String lastName;
+    private String firstName;
+    private String lastName;
     private String name;
     private String password;
     private String email;
     private String role;
 
-   // private int phone;
+    private int phone;
 
     public VolunteerDto(String name, String password, String email, String role) {
         this.name = name;
@@ -27,4 +27,6 @@ public class VolunteerDto {
         this.email = email;
         this.role = role;
     }
+
+
 }

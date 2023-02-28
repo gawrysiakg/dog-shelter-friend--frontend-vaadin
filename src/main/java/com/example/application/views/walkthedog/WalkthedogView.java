@@ -1,6 +1,9 @@
 package com.example.application.views.walkthedog;
 
+import com.example.application.data.client.api.RandomDogClient;
+import com.example.application.data.entity.DogDto;
 import com.example.application.data.entity.ImageDto;
+import com.example.application.data.service.DogService;
 import com.example.application.data.service.GalleryService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.gallery.GalleryViewCard;
@@ -25,6 +28,10 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 import com.vaadin.flow.theme.lumo.LumoUtility.MaxWidth;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.annotation.security.PermitAll;
 import java.util.List;
 
@@ -35,19 +42,27 @@ public class WalkthedogView extends Main implements HasComponents, HasStyle {
 
     private OrderedList imageContainer;
 
-    private GalleryService galleryService;
+    GalleryService galleryService;
+
+    RandomDogClient randomDogClient;
+
+    DogService dogService;
+   // private String randomDogByBreed = "https://dog.ceo/api/breed/hound/images/random";
 
 
-
-    public WalkthedogView(GalleryService galleryService) {
+    public WalkthedogView(GalleryService galleryService, DogService dogService, RandomDogClient randomDogClient) {
         this.galleryService=galleryService;
+        this.dogService=dogService;
+        this.randomDogClient=randomDogClient;
         constructUI();
 
 
 
-        List<ImageDto> all = galleryService.fetchImages();
+
+        List<DogDto> all = dogService.getAllDogs();
         all.stream().forEach(element -> {
-            imageContainer.add(new GalleryViewCard("", element.getUrl()));
+            imageContainer.add(new WalkthedogViewCardInfo( element, randomDogClient));
+
 //            Image image=new Image(element.getUrl(), "no url");
 //            // com.vaadin.flow.component.html.Image image =
 //            //new com.vaadin.flow.component.html.Image(element.getUrl(), "no url");

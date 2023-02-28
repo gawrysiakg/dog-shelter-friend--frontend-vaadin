@@ -1,7 +1,9 @@
 package com.example.application.views.myaccount;
 
 import com.example.application.data.entity.SamplePerson;
+import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.SamplePersonService;
+import com.example.application.data.service.VolunteerService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -31,17 +33,18 @@ public class MyaccountView extends Div {
 
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
+    private TextField name = new TextField("Username");
+    private TextField password = new TextField("Password");
     private EmailField email = new EmailField("Email address");
-    private DatePicker dateOfBirth = new DatePicker("Birthday");
     private PhoneNumberField phone = new PhoneNumberField("Phone number");
-    private TextField occupation = new TextField("Occupation");
+
 
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");
 
-    private Binder<SamplePerson> binder = new Binder<>(SamplePerson.class);
+    private Binder<VolunteerDto> binder = new Binder<>(VolunteerDto.class);
 
-    public MyaccountView(SamplePersonService personService) {
+    public MyaccountView(VolunteerService volunteerService) {
         addClassName("myaccount-view");
 
         add(createTitle());
@@ -53,14 +56,14 @@ public class MyaccountView extends Div {
 
         cancel.addClickListener(e -> clearForm());
         save.addClickListener(e -> {
-            personService.update(binder.getBean());
+            volunteerService.updateUser(binder.getBean());
             Notification.show(binder.getBean().getClass().getSimpleName() + " details stored.");
             clearForm();
         });
     }
 
     private void clearForm() {
-        binder.setBean(new SamplePerson());
+        binder.setBean(new VolunteerDto());
     }
 
     private Component createTitle() {
@@ -70,7 +73,7 @@ public class MyaccountView extends Div {
     private Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
         email.setErrorMessage("Please enter a valid email address");
-        formLayout.add(firstName, lastName, dateOfBirth, phone, email, occupation);
+        formLayout.add(firstName, lastName, name, password, phone, email);
         return formLayout;
     }
 
