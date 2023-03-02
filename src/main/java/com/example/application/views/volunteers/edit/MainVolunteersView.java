@@ -37,18 +37,19 @@ public class MainVolunteersView extends VerticalLayout {
         filter.setClearButtonVisible(true);
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(e -> update());
-        grid.setColumns("id", "name", "password", "email", "role");
-
-        addNewDog.addClickListener(e -> {
-            grid.asSingleSelect().clear(); //"czyścimy" zaznaczenie
-            volunteersEditView.setVolunteer(new VolunteerDto());    //dodajemy nowy obiekt do formularza
-        });
-        HorizontalLayout toolbar = new HorizontalLayout(filter, addNewDog);
+        grid.setColumns("id", "firstName", "lastName", "name", "password", "email", "phone", "role");
+//chwilowo
+//        addNewDog.addClickListener(e -> {
+//            grid.asSingleSelect().clear(); //"czyścimy" zaznaczenie
+//            volunteersEditView.setVolunteer(new VolunteerDto());    //dodajemy nowy obiekt do formularza
+//        });
+//        HorizontalLayout toolbar = new HorizontalLayout(filter, addNewDog);
         HorizontalLayout mainContent = new HorizontalLayout(grid, volunteersEditView);
         mainContent.setSizeFull();
         grid.setSizeFull();
         volunteersEditView.setVolunteer(null);
-        add(toolbar, mainContent);
+      //  add(toolbar, mainContent);
+ add( mainContent);
         setSizeFull();
 
         refresh();

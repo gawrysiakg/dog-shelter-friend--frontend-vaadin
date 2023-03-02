@@ -1,40 +1,51 @@
 package com.example.application.security;
 
-import com.example.application.data.entity.User;
-import com.example.application.data.service.UserRepository;
+import com.example.application.data.entity.VolunteerDto;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.example.application.data.service.VolunteerService;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl extends VolunteerDto implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final VolunteerService volunteerService;
+   // private final PasswordEncoder passwordEncoder;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserDetailsServiceImpl(VolunteerService volunteerService) {
+        this.volunteerService = volunteerService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
+        VolunteerDto volunteerDto = volunteerService.fetchByUsername(username);
+        if (volunteerDto == null) {
             throw new UsernameNotFoundException("No user present with username: " + username);
         } else {
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getHashedPassword(),
-                    getAuthorities(user));
+            return new org.springframework.security.core.userdetails.User(volunteerDto.getName(), volunteerDto.getPassword(),//hashed?
+                    //getAuthorities(volunteerDto));
+                    Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + volunteerDto.getRole())));
+
         }
     }
 
-    private static List<GrantedAuthority> getAuthorities(User user) {
-        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                .collect(Collectors.toList());
-
+    private static List<GrantedAuthority> getAuthorities(VolunteerDto volunteerDto) {
+//        return volunteerDto.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+//                .collect(Collectors.toList());
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority("ROLE_" + volunteerDto.getRole()));
+        return list;
     }
 
 }

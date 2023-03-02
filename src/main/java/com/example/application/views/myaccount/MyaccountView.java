@@ -1,8 +1,6 @@
 package com.example.application.views.myaccount;
 
-import com.example.application.data.entity.SamplePerson;
 import com.example.application.data.entity.VolunteerDto;
-import com.example.application.data.service.SamplePersonService;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
@@ -10,7 +8,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.customfield.CustomField;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;

@@ -37,7 +37,7 @@ public class VolunteerClient {
 
     public VolunteerDto getVolunteerByUsername(String name) {
         return restTemplate.getForObject(
-                backendConfig.getAppEndpoint() + backendConfig.getVolunteersEndpoint()+"/"+name,
+                backendConfig.getAppEndpoint() + backendConfig.getVolunteersEndpoint()+"/login/"+name,
                 VolunteerDto.class);
     }
 

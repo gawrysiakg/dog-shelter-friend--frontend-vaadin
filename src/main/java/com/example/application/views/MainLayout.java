@@ -2,13 +2,11 @@ package com.example.application.views;
 
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
-import com.example.application.data.entity.User;
+import com.example.application.data.entity.VolunteerDto;
+import com.example.application.data.service.VolunteerService;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.volunteers.VolunteerView;
 import com.example.application.views.allwalks.AllwalksView;
-//import com.example.application.views.dogs.DogsListAndForm;
-//import com.example.application.views.dogs.DogsView;
-//import com.example.application.views.dogs.MainView;
 import com.example.application.views.dogs.MainView;
 import com.example.application.views.gallery.GalleryView;
 import com.example.application.views.myaccount.MyaccountView;
@@ -16,7 +14,6 @@ import com.example.application.views.mydogshelter.MydogshelterView;
 import com.example.application.views.mywalks.MywalksView;
 import com.example.application.views.newwalk.NewwalkView;
 import com.example.application.views.volunteers.edit.MainVolunteersView;
-import com.example.application.views.volunteers.edit.VolunteersEditView;
 import com.example.application.views.walksadd.WalksaddView;
 import com.example.application.views.walkthedog.WalkthedogView;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -49,9 +46,12 @@ public class MainLayout extends AppLayout {
     private AuthenticatedUser authenticatedUser;
     private AccessAnnotationChecker accessChecker;
 
-    public MainLayout(AuthenticatedUser authenticatedUser, AccessAnnotationChecker accessChecker) {
+    private VolunteerService volunteerService;
+
+    public MainLayout(AuthenticatedUser authenticatedUser, AccessAnnotationChecker accessChecker, VolunteerService volunteerService) {
         this.authenticatedUser = authenticatedUser;
         this.accessChecker = accessChecker;
+        this.volunteerService = volunteerService;
 
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
@@ -133,40 +133,41 @@ public class MainLayout extends AppLayout {
 
     private Footer createFooter() {
         Footer layout = new Footer();
+        if(volunteerService.fetchVolunteers().size()>0) {
 
-        Optional<User> maybeUser = authenticatedUser.get();
-        if (maybeUser.isPresent()) {
-            User user = maybeUser.get();
+            Optional<VolunteerDto> maybeUser = authenticatedUser.get();
+            if (maybeUser.isPresent()) {
+                VolunteerDto volunteerDto = maybeUser.get();
 
-            Avatar avatar = new Avatar(user.getName());
-            StreamResource resource = new StreamResource("profile-pic",
-                    () -> new ByteArrayInputStream(user.getProfilePicture()));
-            avatar.setImageResource(resource);
-            avatar.setThemeName("xsmall");
-            avatar.getElement().setAttribute("tabindex", "-1");
+                Avatar avatar = new Avatar(volunteerDto.getName());
 
-            MenuBar userMenu = new MenuBar();
-            userMenu.setThemeName("tertiary-inline contrast");
+                avatar.setImage("icons/dog.png");
+                avatar.setThemeName("xsmall");
+                avatar.getElement().setAttribute("tabindex", "-1");
 
-            MenuItem userName = userMenu.addItem("");
-            Div div = new Div();
-            div.add(avatar);
-            div.add(user.getName());
-            div.add(new Icon("lumo", "dropdown"));
-            div.getElement().getStyle().set("display", "flex");
-            div.getElement().getStyle().set("align-items", "center");
-            div.getElement().getStyle().set("gap", "var(--lumo-space-s)");
-            userName.add(div);
-            userName.getSubMenu().addItem("Sign out", e -> {
-                authenticatedUser.logout();
-            });
+                MenuBar userMenu = new MenuBar();
+                userMenu.setThemeName("tertiary-inline contrast");
 
-            layout.add(userMenu);
-        } else {
-            Anchor loginLink = new Anchor("login", "Sign in");
-            layout.add(loginLink);
+                MenuItem userName = userMenu.addItem("");
+                Div div = new Div();
+                div.add(avatar);
+                div.add(volunteerDto.getName());
+                div.add(new Icon("lumo", "dropdown"));
+                div.getElement().getStyle().set("display", "flex");
+                div.getElement().getStyle().set("align-items", "center");
+                div.getElement().getStyle().set("gap", "var(--lumo-space-s)");
+                userName.add(div);
+                userName.getSubMenu().addItem("Sign out", e -> {
+                    authenticatedUser.logout();
+                });
+
+                layout.add(userMenu);
+            } else {
+                Anchor loginLink = new Anchor("login", "Sign in");
+                layout.add(loginLink);
+            }
+
         }
-
         return layout;
     }
 

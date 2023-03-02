@@ -19,7 +19,7 @@ public class VolunteersEditView extends FormLayout {
     private TextField name = new TextField("name");
     private TextField password = new TextField("password");
     private TextField email = new TextField("email");
-    private TextField role = new TextField("role");
+   // private TextField role = new TextField("role");
     private Button save = new Button("Save");
     private Button delete = new Button("Delete");
     private Binder<VolunteerDto> binder = new Binder<VolunteerDto>(VolunteerDto.class);
@@ -37,7 +37,7 @@ public class VolunteersEditView extends FormLayout {
 
         HorizontalLayout buttons = new HorizontalLayout(save, delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        add(id, name, password, email, role, buttons);
+        add(id, name, password, email, buttons);
         binder.bindInstanceFields(this);
         save.addClickListener(event -> save());
         delete.addClickListener(event -> delete());

@@ -1,6 +1,5 @@
 package com.example.application.views.volunteers;
 
-import com.example.application.data.entity.SampleBook;
 import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.views.MainLayout;
@@ -13,7 +12,6 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.notification.NotificationVariant;
@@ -27,13 +25,7 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.Base64;
 import java.util.Optional;
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -158,7 +150,7 @@ public class VolunteerView extends Div implements BeforeEnterObserver {
             if (sampleVolunteerId.isPresent()) {
                 populateForm(volunteerFromBackend);
             } else {
-                Notification.show(String.format("The requested sampleBook was not found, ID = %s", sampleVolunteerId.get()),
+                Notification.show(String.format("The requested was not found, ID = %s", sampleVolunteerId.get()),
                         3000, Notification.Position.BOTTOM_START);
                 // when a row is selected but the data is no longer available,
                 // refresh grid
