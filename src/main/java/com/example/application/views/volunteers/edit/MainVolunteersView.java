@@ -12,11 +12,13 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 
 @Component
 @Route(value = "volunteers/edit", layout = MainLayout.class)
-@RolesAllowed("ADMIN")
+//@RolesAllowed("ADMIN")
+@PermitAll
 public class MainVolunteersView extends VerticalLayout {
 
     private final VolunteerService volunteerService;

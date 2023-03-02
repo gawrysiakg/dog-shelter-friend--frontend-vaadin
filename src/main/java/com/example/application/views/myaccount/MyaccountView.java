@@ -1,7 +1,9 @@
 package com.example.application.views.myaccount;
 
+import com.example.application.data.Role;
 import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
+import com.example.application.security.UserDetailsServiceImpl;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -16,40 +18,87 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinContext;
+import com.vaadin.flow.server.VaadinSession;
+
 import javax.annotation.security.PermitAll;
 
 @PageTitle("My account")
 @Route(value = "volunteers/details", layout = MainLayout.class)
 @PermitAll
 @Uses(Icon.class)
-public class MyaccountView extends Div {
+public class MyaccountView extends FormLayout {
 
-    private TextField firstName = new TextField("First name");
-    private TextField lastName = new TextField("Last name");
-    private TextField name = new TextField("Username");
-    private TextField password = new TextField("Password");
-    private EmailField email = new EmailField("Email address");
-    private PhoneNumberField phone = new PhoneNumberField("Phone number");
+  //  private TextField id = new TextField("id");
 
+    private TextField firstName = new TextField("firstName");
+    private TextField lastName = new TextField("lastName");
+    private TextField name = new TextField("name");
+    private TextField password = new TextField("password");
+    private TextField email = new TextField("email");
+    private IntegerField phone = new IntegerField("phone");
+    private ComboBox<Role> role = new ComboBox<Role>("role");
+
+    private VolunteerDto volunteerDto;
+    private VolunteerService volunteerService;
+
+
+//    public void setVolunteerDto(VolunteerDto volunteerDto) {
+//        this.volunteerDto = volunteerDto;
+//        binder.readBean(volunteerDto);
+//    }
+    private Binder<VolunteerDto> binder;//= new Binder<>(VolunteerDto.class);
 
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");
 
-    private Binder<VolunteerDto> binder = new Binder<>(VolunteerDto.class);
 
-    public MyaccountView(VolunteerService volunteerService) {
+
+    public MyaccountView(VolunteerService volunteerService, VolunteerDto volunteerDto) {
+        this.volunteerDto=volunteerDto;
+        binder= new Binder<>(VolunteerDto.class);
+       // binder.bindInstanceFields(volunteerService.fetchByUsername(VaadinSession.getCurrent().getAttribute()));
+
+//        binder.forField(id)
+//                .withConverter(
+//                        new StringToLongConverter("Must enter a number"))
+//                .bind(VolunteerDto::getId, VolunteerDto::setId);
+//        binder.forField(phone)
+//                .withConverter(
+//                        new StringToLongConverter("Must enter a number"))
+//                .bind(VolunteerDto::getPhone, VolunteerDto::setPhone);
+//
+
+
+        binder.bindInstanceFields(this);
+
+//
+//        binder.forField(id)
+//                .bind(VolunteerDto::getId, Person::setFirstName);
+//        binder.forField(lastName)
+//                .bind(Person::getLastName, Person::setLastName);
+//        binder.forField(gender)
+//                .bind(Person::getGender, Person::setGender);
+//
+//
+
+
         addClassName("myaccount-view");
-
+        binder.setBean(volunteerDto);
         add(createTitle());
         add(createFormLayout());
         add(createButtonLayout());
-
-        binder.bindInstanceFields(this);
-        clearForm();
+      //  binder.setBean(binder.getBean());
+       // binder.bindInstanceFields(this);
+       // clearForm();
 
         cancel.addClickListener(e -> clearForm());
         save.addClickListener(e -> {
@@ -57,9 +106,92 @@ public class MyaccountView extends Div {
             Notification.show(binder.getBean().getClass().getSimpleName() + " details stored.");
             clearForm();
         });
+
+        binder.refreshFields();
+
+
+
+
+
+
+
+
+
+
+
+//
+//        //
+//        //
+//        this.volunteerService=volunteerService;
+//        this.volunteerDto=volunteerDto;
+//        addClassName("myaccount-view");
+//        binder = new Binder<>(VolunteerDto.class);
+//        setVolunteerDto(volunteerDto);
+//        add(createTitle());
+//        add(createFormLayout());
+//        add(createButtonLayout());
+//
+//        //String username = (String) VaadinSession.getCurrent().getAttribute("name");
+//        //volunteerService.fetchByUsername(username);
+//      //  binder = new BeanValidationBinder<>(VolunteerDto.class); //added
+//       binder.bindInstanceFields(this);
+//
+//      //  VolunteerDto fromForm = binder.getBean();
+//
+//       // clearForm();
+//        binder.refreshFields();
+//      //  VolunteerDto fromRepo = volunteerService.fetchByUsername(username);
+//
+//
+//
+//
+//
+//        cancel.addClickListener(e -> clearForm());
+//        save.addClickListener(e -> {
+//          //  VolunteerDto toUpdate = binder.getBean();
+//         //   toUpdate.setRole(UI.getCurrent().getSession().getAttribute(Role.class));
+//         //   volunteerService.updateUser(toUpdate);
+//
+////
+////            if(!firstName.getValue().isEmpty()){
+////                fromRepo.setFirstName(firstName.getValue());
+////            }
+////            if(!lastName.getValue().isEmpty()){
+////                fromRepo.setLastName(lastName.getValue());
+////            }
+////            if(!email.getValue().isEmpty()) {
+////                fromRepo.setEmail(email.getValue());
+////            }
+////            if(!name.getValue().isEmpty()) {
+////                fromRepo.setName(name.getValue());
+////            }
+////            if(!password.getValue().isEmpty()) {
+////                fromRepo.setPassword(password.getValue());
+////            }
+////            if(phone.getValue()>100000000) {
+////                fromRepo.setPhone(phone.getValue());
+////            }
+////
+////            volunteerService.updateUser(fromRepo);
+//
+//
+//
+//
+//
+//
+//           // Notification.show(binder.getBean().getClass().getSimpleName() + " details stored.");
+//            clearForm();
+//        });
+    }
+
+
+    private void updateCurrent(){
+
+
     }
 
     private void clearForm() {
+
         binder.setBean(new VolunteerDto());
     }
 
@@ -70,7 +202,9 @@ public class MyaccountView extends Div {
     private Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
         email.setErrorMessage("Please enter a valid email address");
-        formLayout.add(firstName, lastName, name, password, phone, email);
+       // binder.setBean(binder.getBean());
+        formLayout.add( firstName, lastName, name, password, phone, email, role);
+        //binder.setBean(binder.getBean());
         return formLayout;
     }
 
