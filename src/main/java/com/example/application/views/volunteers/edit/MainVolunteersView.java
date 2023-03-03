@@ -16,8 +16,8 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 
 @Component
-@Route(value = "volunteers/edit", layout = MainLayout.class)
-//@RolesAllowed("ADMIN")
+@Route(value = "volunteers", layout = MainLayout.class)
+@RolesAllowed("ADMIN")
 @PermitAll
 public class MainVolunteersView extends VerticalLayout {
 
@@ -28,11 +28,15 @@ public class MainVolunteersView extends VerticalLayout {
 
     VolunteersEditView volunteersEditView;
 
-    private Button addNewDog = new Button("Add new volunteer");
+    private Button addNewVolunteer = new Button("Add new volunteer");
 
     public MainVolunteersView(VolunteerService volunteerService){
         this.volunteerService = volunteerService;
+       // this.volunteersEditView=volunteersEditView;
         volunteersEditView = new VolunteersEditView(this, volunteerService);
+
+
+
 
         // this.dogService=dogService;
         filter.setPlaceholder("Filter by title...");
@@ -40,18 +44,19 @@ public class MainVolunteersView extends VerticalLayout {
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(e -> update());
         grid.setColumns("id", "firstName", "lastName", "name", "password", "email", "phone", "role");
-//chwilowo
-//        addNewDog.addClickListener(e -> {
-//            grid.asSingleSelect().clear(); //"czyścimy" zaznaczenie
-//            volunteersEditView.setVolunteer(new VolunteerDto());    //dodajemy nowy obiekt do formularza
-//        });
-//        HorizontalLayout toolbar = new HorizontalLayout(filter, addNewDog);
+
+        addNewVolunteer.addClickListener(e -> {
+            grid.asSingleSelect().clear(); //"czyścimy" zaznaczenie
+            volunteersEditView.setVolunteer(new VolunteerDto());    //dodajemy nowy obiekt do formularza
+        });
+        HorizontalLayout toolbar = new HorizontalLayout(filter, addNewVolunteer);
+
         HorizontalLayout mainContent = new HorizontalLayout(grid, volunteersEditView);
         mainContent.setSizeFull();
         grid.setSizeFull();
         volunteersEditView.setVolunteer(null);
-      //  add(toolbar, mainContent);
- add( mainContent);
+        add(toolbar, mainContent);
+        add( mainContent);
         setSizeFull();
 
         refresh();

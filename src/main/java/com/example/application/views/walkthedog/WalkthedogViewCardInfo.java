@@ -3,7 +3,7 @@ package com.example.application.views.walkthedog;
 import com.example.application.data.client.api.RandomDogClient;
 import com.example.application.data.entity.DogDto;
 import com.example.application.data.entity.api.RandomDog;
-import com.example.application.views.volunteers.VolunteerView;
+//import com.example.application.views.volunteers.VolunteerView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.theme.lumo.LumoUtility.*;

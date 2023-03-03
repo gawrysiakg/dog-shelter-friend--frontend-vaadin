@@ -1,5 +1,9 @@
 package com.example.application.data;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public enum Role {
     USER, ADMIN;
 }

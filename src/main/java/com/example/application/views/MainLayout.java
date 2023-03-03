@@ -5,9 +5,10 @@ import com.example.application.components.appnav.AppNavItem;
 import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.security.AuthenticatedUser;
-import com.example.application.views.volunteers.VolunteerView;
+import com.example.application.views.volunteers.AddNewVolunteerByAdmin;
+//import com.example.application.views.volunteers.VolunteerView;
 import com.example.application.views.allwalks.AllwalksView;
-import com.example.application.views.dogs.MainView;
+import com.example.application.views.dogs.MainDogsView;
 import com.example.application.views.gallery.GalleryView;
 import com.example.application.views.myaccount.MyaccountView;
 import com.example.application.views.mydogshelter.MydogshelterView;
@@ -30,10 +31,9 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import java.io.ByteArrayInputStream;
+
 import java.util.Optional;
 
 /**
@@ -91,6 +91,10 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("Gallery", GalleryView.class, "la la-tablet"));
 
         }
+        if (accessChecker.hasAccess(UploadView.class)) {
+            nav.addItem(new AppNavItem("Add photo", UploadView.class, "la la-align-justify"));
+
+        }
         if (accessChecker.hasAccess(WalkthedogView.class)) {
             nav.addItem(new AppNavItem("Walk the dog", WalkthedogView.class, "la la-walking"));
 
@@ -99,14 +103,19 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("My account", MyaccountView.class, "la la-user"));
 
         }
-        if (accessChecker.hasAccess(MainView.class)) {
-            nav.addItem(new AppNavItem("Dogs", MainView.class, "la la-filter"));
+
+        if (accessChecker.hasAccess(AddNewVolunteerByAdmin.class)) {
+            nav.addItem(new AppNavItem("Add new volunteer", AddNewVolunteerByAdmin.class, "la la-user"));
 
         }
-        if (accessChecker.hasAccess(VolunteerView.class)) {
-            nav.addItem(new AppNavItem("Volunteers", VolunteerView.class, "la la-align-justify"));
+        if (accessChecker.hasAccess(MainDogsView.class)) {
+            nav.addItem(new AppNavItem("Dogs", MainDogsView.class, "la la-filter"));
 
         }
+//        if (accessChecker.hasAccess(VolunteerView.class)) {
+//            nav.addItem(new AppNavItem("Volunteers", VolunteerView.class, "la la-align-justify"));
+//
+//        }
         if (accessChecker.hasAccess(MainVolunteersView.class)) {
             nav.addItem(new AppNavItem("Volunteers edit", MainVolunteersView.class, "la la-align-justify"));
 
@@ -123,6 +132,7 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("New walk", NewwalkView.class, "la la-align-justify"));
 
         }
+
         if (accessChecker.hasAccess(WalksaddView.class)) {
             nav.addItem(new AppNavItem("Walks/add", WalksaddView.class, "la la-file"));
 
