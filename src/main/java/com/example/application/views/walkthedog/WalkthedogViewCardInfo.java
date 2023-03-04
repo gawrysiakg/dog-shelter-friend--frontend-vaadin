@@ -2,22 +2,22 @@ package com.example.application.views.walkthedog;
 
 import com.example.application.data.client.api.RandomDogClient;
 import com.example.application.data.entity.DogDto;
-import com.example.application.data.entity.api.RandomDog;
 //import com.example.application.views.volunteers.VolunteerView;
+import com.example.application.views.newwalk.NewWalkView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.theme.lumo.LumoUtility.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.security.RolesAllowed;
 
 @Component
 @RequiredArgsConstructor
+@RolesAllowed({"ADMIN", "USER"})
 public class WalkthedogViewCardInfo extends ListItem {
 
     DogDto dogDto;
-
-    //@Autowired
     RandomDogClient randomDogClient;
 
 
@@ -71,8 +71,14 @@ public class WalkthedogViewCardInfo extends ListItem {
         Span badge = new Span();
         badge.getElement().setAttribute("theme", "badge");
         badge.setText("Walk the dog");
-        badge.addClickListener(spanClickEvent ->
-                UI.getCurrent().navigate(CreateWalkForm.class));
+        badge.addClickListener(spanClickEvent -> {
+                WalkthedogView.SELECTED_DOG_NAME=dogDto.getName();
+
+                UI.getCurrent().navigate(NewWalkView.class);//CreateWalkForm
+           // UI.getCurrent().navigate("register-walk");
+            UI.getCurrent().getNavigationListeners( NewWalkView.class);
+          //  UI.getCurrent().getNavigator().navigateTo(MAINVIEW);
+        });
 
         add(div, header, subtitle, description, description2, description3, description4, badge);
 

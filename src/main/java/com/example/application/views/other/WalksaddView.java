@@ -1,4 +1,4 @@
-package com.example.application.views.mydogshelter;
+package com.example.application.views.other;
 
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.html.H2;
@@ -10,22 +10,22 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 
-@PageTitle("My dog shelter")
-@Route(value = "", layout = MainLayout.class)
+@PageTitle("Walks/add")
+@Route(value = "walks/add", layout = MainLayout.class)
 @AnonymousAllowed
-public class MydogshelterView extends VerticalLayout {
+public class WalksaddView extends VerticalLayout {
 
-    public MydogshelterView() {
+    public WalksaddView() {
         setSpacing(false);
 
-        Image img = new Image("images/dogs-background.png", "placeholder plant");
-        img.setWidth("800px");
+        Image img = new Image("images/empty-plant.png", "placeholder plant");
+        img.setWidth("200px");
         add(img);
 
-        H2 header = new H2("Take us for a walk!");
+        H2 header = new H2("This place intentionally left empty");
         header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
         add(header);
-        add(new Paragraph("We will all have fun:)"));
+        add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
 
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);

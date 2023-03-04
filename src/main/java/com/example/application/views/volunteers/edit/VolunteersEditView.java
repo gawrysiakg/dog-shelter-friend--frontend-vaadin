@@ -41,10 +41,10 @@ public class VolunteersEditView extends FormLayout {
     public VolunteersEditView(MainVolunteersView mainVolunteersView, VolunteerService service){
         this.mainVolunteersView = mainVolunteersView;
         this.service = service;
-
+        role.setItems(Role.ADMIN, Role.USER);
         HorizontalLayout buttons = new HorizontalLayout(save, delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        role.setItems(Role.ADMIN, Role.USER);
+
 
         add(id, firstName, lastName, name, password, email, phone, role, buttons);
 

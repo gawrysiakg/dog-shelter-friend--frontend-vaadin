@@ -42,6 +42,8 @@ public class MainVolunteersView extends VerticalLayout {
         filter.setPlaceholder("Filter by title...");
         filter.setClearButtonVisible(true);
         filter.setValueChangeMode(ValueChangeMode.EAGER);
+        filter.setClearButtonVisible(true);
+
         filter.addValueChangeListener(e -> update());
         grid.setColumns("id", "firstName", "lastName", "name", "password", "email", "phone", "role");
 

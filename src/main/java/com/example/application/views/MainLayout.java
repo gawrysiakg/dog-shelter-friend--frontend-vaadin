@@ -5,17 +5,18 @@ import com.example.application.components.appnav.AppNavItem;
 import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.security.AuthenticatedUser;
+import com.example.application.views.allwalks.MainAllWalks;
+import com.example.application.views.mywalks.MainMyWalks;
 import com.example.application.views.volunteers.AddNewVolunteerByAdmin;
 //import com.example.application.views.volunteers.VolunteerView;
-import com.example.application.views.allwalks.AllwalksView;
+import com.example.application.views.allwalks.AllWalksView;
 import com.example.application.views.dogs.MainDogsView;
 import com.example.application.views.gallery.GalleryView;
-import com.example.application.views.myaccount.MyaccountView;
-import com.example.application.views.mydogshelter.MydogshelterView;
-import com.example.application.views.mywalks.MywalksView;
-import com.example.application.views.newwalk.NewwalkView;
+import com.example.application.views.myaccount.MyAccountView;
+import com.example.application.views.home.MydogshelterView;
+import com.example.application.views.mywalks.MyWalksView;
 import com.example.application.views.volunteers.edit.MainVolunteersView;
-import com.example.application.views.walksadd.WalksaddView;
+import com.example.application.views.other.WalksaddView;
 import com.example.application.views.walkthedog.WalkthedogView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -84,7 +85,7 @@ public class MainLayout extends AppLayout {
         AppNav nav = new AppNav();
 
         if (accessChecker.hasAccess(MydogshelterView.class)) {
-            nav.addItem(new AppNavItem("My dog shelter", MydogshelterView.class, "la la-info"));
+            nav.addItem(new AppNavItem("Home", MydogshelterView.class, "la la-info"));
 
         }
         if (accessChecker.hasAccess(GalleryView.class)) {
@@ -99,8 +100,8 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("Walk the dog", WalkthedogView.class, "la la-walking"));
 
         }
-        if (accessChecker.hasAccess(MyaccountView.class)) {
-            nav.addItem(new AppNavItem("My account", MyaccountView.class, "la la-user"));
+        if (accessChecker.hasAccess(MyAccountView.class)) {
+            nav.addItem(new AppNavItem("My account", MyAccountView.class, "la la-user"));
 
         }
 
@@ -112,6 +113,14 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("Dogs", MainDogsView.class, "la la-filter"));
 
         }
+
+        if (accessChecker.hasAccess(MainAllWalks.class)) {
+            nav.addItem(new AppNavItem("Walks", MainAllWalks.class, "la la-filter"));
+
+        }
+
+
+
 //        if (accessChecker.hasAccess(VolunteerView.class)) {
 //            nav.addItem(new AppNavItem("Volunteers", VolunteerView.class, "la la-align-justify"));
 //
@@ -120,18 +129,18 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("Volunteers edit", MainVolunteersView.class, "la la-align-justify"));
 
         }
-        if (accessChecker.hasAccess(AllwalksView.class)) {
-            nav.addItem(new AppNavItem("All walks", AllwalksView.class, "la la-align-justify"));
+        if (accessChecker.hasAccess(AllWalksView.class)) {
+            nav.addItem(new AppNavItem("All walks", AllWalksView.class, "la la-align-justify"));
 
         }
-        if (accessChecker.hasAccess(MywalksView.class)) {
-            nav.addItem(new AppNavItem("My walks", MywalksView.class, "la la-align-justify"));
+        if (accessChecker.hasAccess(MainMyWalks.class)) {
+            nav.addItem(new AppNavItem("My walks", MainMyWalks.class, "la la-align-justify"));
 
         }
-        if (accessChecker.hasAccess(NewwalkView.class)) {
-            nav.addItem(new AppNavItem("New walk", NewwalkView.class, "la la-align-justify"));
-
-        }
+//        if (accessChecker.hasAccess(NewwalkView.class)) {
+//            nav.addItem(new AppNavItem("New walk", NewwalkView.class, "la la-align-justify"));
+//
+//        }
 
         if (accessChecker.hasAccess(WalksaddView.class)) {
             nav.addItem(new AppNavItem("Walks/add", WalksaddView.class, "la la-file"));

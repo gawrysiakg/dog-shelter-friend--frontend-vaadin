@@ -4,6 +4,7 @@ import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.dogs.MainDogsView;
+import com.example.application.views.home.MydogshelterView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -27,7 +28,7 @@ import javax.annotation.security.PermitAll;
 @Route(value = "volunteers/details", layout = MainLayout.class)
 @PermitAll
 @Uses(Icon.class)
-public class MyaccountView extends VerticalLayout{
+public class MyAccountView extends VerticalLayout{
 
 
     private TextField firstName = new TextField("First name");
@@ -43,7 +44,7 @@ public class MyaccountView extends VerticalLayout{
 
 
 
-    public MyaccountView(VolunteerService volunteerService) {
+    public MyAccountView(VolunteerService volunteerService) {
        this.volunteerService=volunteerService;
 
         addClassName("myaccount-view");
@@ -58,7 +59,7 @@ public class MyaccountView extends VerticalLayout{
 
         updateForm(currentPrincipalName);
 
-        cancel.addClickListener(e -> UI.getCurrent().navigate(MainDogsView.class));
+        cancel.addClickListener(e -> UI.getCurrent().navigate(MydogshelterView.class));
         save.addClickListener(e -> {
             save();
             updateForm(currentPrincipalName);
