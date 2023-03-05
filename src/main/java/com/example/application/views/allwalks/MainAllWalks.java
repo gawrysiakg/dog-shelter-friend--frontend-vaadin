@@ -1,6 +1,5 @@
 package com.example.application.views.allwalks;
 
-import com.example.application.data.entity.DogDto;
 import com.example.application.data.entity.WalkDto;
 import com.example.application.data.service.WalkService;
 import com.example.application.views.MainLayout;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.security.RolesAllowed;
 
-@Component
+//@Component
 @Route(value = "walks/all", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 public class MainAllWalks extends VerticalLayout {
@@ -38,7 +37,9 @@ public class MainAllWalks extends VerticalLayout {
 
         filter.setPlaceholder("Filter by Dog name..");
         filter.setClearButtonVisible(true);
+
         filter.setValueChangeMode(ValueChangeMode.EAGER);
+        //todo
        // filter.addValueChangeListener(e -> update());
         grid.setColumns("id", "walkDate", "volunteerName", "dogName");
 

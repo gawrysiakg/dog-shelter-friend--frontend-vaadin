@@ -40,4 +40,9 @@ public class WalkClient {
                 .getWalksEndpoint()+"/planned/"+username,  WalkDto[].class);
         return  Optional.ofNullable(list).map(Arrays::asList).orElse(Collections.emptyList());
     }
+
+    public void updateWalk(WalkDto walkDto) {
+        restTemplate.patchForObject(backendConfig.getAppEndpoint()+backendConfig
+                .getWalksEndpoint(), walkDto, WalkDto.class);
+    }
 }

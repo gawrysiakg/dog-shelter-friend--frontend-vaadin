@@ -38,9 +38,7 @@ public class AddNewVolunteerByAdmin extends VerticalLayout {
     private TextField email = new TextField("email");
     private IntegerField phone = new IntegerField("phone");
     private ComboBox<Role> role = new ComboBox<Role>("role");
-   // private VolunteerDto volunteerDto;
     private  final VolunteerService volunteerService;
-   // private Binder<VolunteerDto> binder= new Binder<>(VolunteerDto.class);
 
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");

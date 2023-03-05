@@ -5,6 +5,7 @@ import com.example.application.data.service.GalleryService;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -25,6 +26,8 @@ public class UploadView extends VerticalLayout {
         this.galleryService = galleryService;
 
         setAlignItems(Alignment.AUTO);
+        H3 a = new H3("Enter link to the picture on Your hard drive: ");
+        add(a);
         Label label = new Label();
         label.addClassName("button-layout");
         TextField textField = new TextField();

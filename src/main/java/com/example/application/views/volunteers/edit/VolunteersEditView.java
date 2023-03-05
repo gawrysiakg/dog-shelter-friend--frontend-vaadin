@@ -1,9 +1,7 @@
 package com.example.application.views.volunteers.edit;
 
 import com.example.application.data.Role;
-import com.example.application.data.entity.DogDto;
 import com.example.application.data.entity.VolunteerDto;
-import com.example.application.data.service.DogService;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
@@ -13,14 +11,13 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.security.RolesAllowed;
 
 @Route(value = "volunteers/edit", layout = MainLayout.class)
-@Component
+//@Component
 @RolesAllowed("ADMIN")
 public class VolunteersEditView extends FormLayout {
 
@@ -45,14 +42,10 @@ public class VolunteersEditView extends FormLayout {
         HorizontalLayout buttons = new HorizontalLayout(save, delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-
         add(id, firstName, lastName, name, password, email, phone, role, buttons);
 
-
-       // binder.bindInstanceFields(this);
         save.addClickListener(event -> save());
         delete.addClickListener(event -> delete());
-       // binder.refreshFields();
     }
 
 
@@ -70,11 +63,6 @@ public class VolunteersEditView extends FormLayout {
         return dto;
     }
     private void save() {
-//        VolunteerDto dto =binder.getBean();
-//        service.createVolunteer(dto);
-//        mainVolunteersView.refresh();
-//        setVolunteer(null);
-
         service.createVolunteer(volunteerDtoFromFields());
         mainVolunteersView.refresh();
         setVolunteer(null);
@@ -82,7 +70,6 @@ public class VolunteersEditView extends FormLayout {
     }
 
     private void delete() {
-       // VolunteerDto dto = binder.getBean();
         service.deleteUser(volunteerDtoFromFields().getId());
         mainVolunteersView.refresh();
         setVolunteer(null);

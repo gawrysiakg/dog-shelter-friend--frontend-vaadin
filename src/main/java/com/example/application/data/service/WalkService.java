@@ -27,4 +27,8 @@ public class WalkService {
     public List<WalkDto> fetchPlannedWalksForVolunteer(String username) {
         return walkClient.getPlannedWalksForVolunteer(username);
     }
+
+    public void updateWalk(WalkDto walkDto) {
+        walkClient.updateWalk(walkDto);
+    }
 }

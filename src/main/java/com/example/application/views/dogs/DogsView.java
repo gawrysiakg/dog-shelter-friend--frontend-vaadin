@@ -2,7 +2,6 @@ package com.example.application.views.dogs;
 
 import com.example.application.data.entity.DogDto;
 import com.example.application.data.service.DogService;
-//import com.example.application.views.volunteers.VolunteerView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -13,7 +12,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class DogsView extends FormLayout {
 
     private TextField id = new TextField("id");

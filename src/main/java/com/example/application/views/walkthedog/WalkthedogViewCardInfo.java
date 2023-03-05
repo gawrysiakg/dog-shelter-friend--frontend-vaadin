@@ -2,7 +2,6 @@ package com.example.application.views.walkthedog;
 
 import com.example.application.data.client.api.RandomDogClient;
 import com.example.application.data.entity.DogDto;
-//import com.example.application.views.volunteers.VolunteerView;
 import com.example.application.views.newwalk.NewWalkView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.*;
@@ -17,13 +16,15 @@ import javax.annotation.security.RolesAllowed;
 @RolesAllowed({"ADMIN", "USER"})
 public class WalkthedogViewCardInfo extends ListItem {
 
-    DogDto dogDto;
+    public DogDto dogDto;
     RandomDogClient randomDogClient;
 
 
     public WalkthedogViewCardInfo(DogDto dogDto, RandomDogClient randomDogClient) {
         this.dogDto=dogDto;
         this.randomDogClient=randomDogClient;
+
+        //selectedDogName = dogDto.getName();
         addClassNames(Background.CONTRAST_5, Display.FLEX, FlexDirection.COLUMN, AlignItems.START, Padding.MEDIUM,
                 BorderRadius.LARGE);
 
@@ -36,7 +37,7 @@ public class WalkthedogViewCardInfo extends ListItem {
         image.setWidth("100%");
 //        RandomDog randomDog=randomDogClient.getRandomDogByBreed(dogDto.getBreed());
        // image.setSrc("dog");
-        //   image.setAlt(text);
+
 
         div.add(image);
 
@@ -72,15 +73,14 @@ public class WalkthedogViewCardInfo extends ListItem {
         badge.getElement().setAttribute("theme", "badge");
         badge.setText("Walk the dog");
         badge.addClickListener(spanClickEvent -> {
-                WalkthedogView.SELECTED_DOG_NAME=dogDto.getName();
 
+            NewWalkView.dogForWalk=dogDto.getName();
                 UI.getCurrent().navigate(NewWalkView.class);//CreateWalkForm
            // UI.getCurrent().navigate("register-walk");
             UI.getCurrent().getNavigationListeners( NewWalkView.class);
-          //  UI.getCurrent().getNavigator().navigateTo(MAINVIEW);
         });
 
         add(div, header, subtitle, description, description2, description3, description4, badge);
-
     }
+
 }

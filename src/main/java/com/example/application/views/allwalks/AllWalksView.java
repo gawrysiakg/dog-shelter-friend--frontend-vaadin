@@ -1,10 +1,7 @@
 package com.example.application.views.allwalks;
 
-import com.example.application.data.entity.DogDto;
 import com.example.application.data.entity.WalkDto;
 import com.example.application.data.service.WalkService;
-import com.example.application.views.dogs.MainDogsView;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -15,7 +12,9 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import org.springframework.stereotype.Component;
 
-@Component
+import javax.annotation.security.RolesAllowed;
+
+//@Component
 public class AllWalksView extends VerticalLayout {
 
     private TextField id = new TextField("id");
@@ -75,14 +74,14 @@ public class AllWalksView extends VerticalLayout {
 
     private void delete() {
         WalkDto walkDto = binder.getBean();
-       // walkService.deleteWalk(walkDto.getId());
+        walkService.deleteWalk(walkDto.getId());
         mainAllWalks.refresh();
         setWalk(null);
     }
 
     private void update() {
         WalkDto walkDto = binder.getBean();
-      //  walkService.updateWalk(walkDto);
+        walkService.updateWalk(walkDto);
         mainAllWalks.refresh();
         setWalk(null);
     }
@@ -98,28 +97,3 @@ public class AllWalksView extends VerticalLayout {
         }
     }
 }
-
-
-
-
-
-
-
-//public AllwalksView() {
-//        setSpacing(false);
-//
-//        Image img = new Image("images/empty-plant.png", "placeholder plant");
-//        img.setWidth("200px");
-//        add(img);
-//
-//        H2 header = new H2("This place intentionally left empty");
-//        header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
-//        add(header);
-//        add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
-//
-//        setSizeFull();
-//        setJustifyContentMode(JustifyContentMode.CENTER);
-//        setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-//        getStyle().set("text-align", "center");
-//    }
-

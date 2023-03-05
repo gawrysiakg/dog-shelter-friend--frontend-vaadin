@@ -16,6 +16,7 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
@@ -33,10 +34,7 @@ public class RegisterView extends Div{//Composite Vertical layout
     private TextField name = new TextField("Username");
     private TextField password = new TextField("Password");
     private EmailField email = new EmailField("Email address");
-   // private DatePicker dateOfBirth = new DatePicker("Birthday");
-    private RegisterView.PhoneNumberField phone = new RegisterView.PhoneNumberField("Phone number");
-
-
+    private IntegerField phone = new IntegerField("phone");
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");
 
@@ -56,10 +54,15 @@ public class RegisterView extends Div{//Composite Vertical layout
 
         cancel.addClickListener(e -> clearForm());
         save.addClickListener(e -> {
-           // volunteerService.createVolunteer(binder.getBean());
+            VolunteerDto volunteerDto = new VolunteerDto();
+            volunteerDto.setFirstName(firstName.getValue());
+            volunteerDto.setLastName(lastName.getValue());
+            volunteerDto.setName(name.getValue());
+            volunteerDto.setPassword(password.getValue());
+            volunteerDto.setEmail(email.getValue());
+            volunteerDto.setPhone(phone.getValue());
+            volunteerDto.setRole(Role.USER);
 
-            VolunteerDto volunteerDto = new VolunteerDto(firstName.getValue(), lastName.getValue(), name.getValue()
-                    , password.getValue(), email.getValue(), binder.getBean().getPhone(), Role.USER);
             if(volunteerService.fetchVolunteers().size()==0){
                 volunteerDto.setRole(Role.ADMIN);
             }
@@ -67,10 +70,13 @@ public class RegisterView extends Div{//Composite Vertical layout
 //                volunteerDto.setRole(Role.USER);
 //            }
             volunteerService.createVolunteer(volunteerDto);
-//            VolunteerDto fromRepo = volunteerService.fetchByUsername(volunteerDto.getName());
-//
-//           volunteerService.createVolunteer(fromRepo);
-            Notification.show(binder.getBean().getClass().getSimpleName() + " Registered. Now log in");
+            VolunteerDto fromRepo = volunteerService.fetchByUsername(volunteerDto.getName());
+            if(fromRepo==null){
+                Notification.show("Not registered", 1500, Notification.Position.MIDDLE);
+            } else {
+                Notification.show(fromRepo.getName()+ " registered. Now log in");
+            }
+
             clearForm();
             UI.getCurrent().navigate("login");
         });
@@ -100,6 +106,7 @@ public class RegisterView extends Div{//Composite Vertical layout
         return buttonLayout;
     }
 
+    //todo
     private static class PhoneNumberField extends CustomField<String> {
         private ComboBox<String> countryCode = new ComboBox<>();
         private TextField number = new TextField();

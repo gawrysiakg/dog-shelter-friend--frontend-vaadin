@@ -3,7 +3,6 @@ package com.example.application.views.myaccount;
 import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.views.MainLayout;
-import com.example.application.views.dogs.MainDogsView;
 import com.example.application.views.home.MydogshelterView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;

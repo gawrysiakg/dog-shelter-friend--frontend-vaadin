@@ -42,6 +42,8 @@ public class NewWalkView extends VerticalLayout{
     private VolunteerDto activeVolunteer;
 
 
+    public static String dogForWalk = "";
+
     public NewWalkView(VolunteerService volunteerService, DogService dogService, WalkService walkService){
         this.volunteerService = volunteerService;
         this.dogService = dogService;
@@ -61,7 +63,7 @@ public class NewWalkView extends VerticalLayout{
         save.addClickListener(e -> {
             if(!dateOfWalk.isEmpty()){
                 WalkDto walkDto = new WalkDto();
-                walkDto.setDogName(WalkthedogView.SELECTED_DOG_NAME);
+                walkDto.setDogName(dogForWalk);
                 walkDto.setVolunteerName(activeVolunteer.getName());
                 walkDto.setWalkDate(dateOfWalk.getValue());
                 walkService.saveWalk(walkDto);
@@ -77,7 +79,7 @@ public class NewWalkView extends VerticalLayout{
     private Component createTitle() {
         VerticalLayout verticalLayout = new VerticalLayout();
         H3 a = new H3("Creating new walk for You: ");
-        H3 b = new H3("Dog name: "+ WalkthedogView.SELECTED_DOG_NAME);
+        H3 b = new H3("Dog name: "+ dogForWalk);
         H3 c = new H3("Username: "+ activeVolunteer.getName());
         H3 d = new H3( "Details will be send to: "+activeVolunteer.getEmail());
         verticalLayout.add(a, b, c, d);
@@ -99,4 +101,7 @@ public class NewWalkView extends VerticalLayout{
         return buttonLayout;
     }
 
+    public void setDogForWalk(String dogForWalk) {
+        this.dogForWalk = dogForWalk;
+    }
 }

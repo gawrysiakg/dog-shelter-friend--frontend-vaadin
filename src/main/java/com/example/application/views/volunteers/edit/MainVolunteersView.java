@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 
-@Component
+//@Component
 @Route(value = "volunteers", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 @PermitAll

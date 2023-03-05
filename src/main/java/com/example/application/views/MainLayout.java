@@ -8,26 +8,20 @@ import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.allwalks.MainAllWalks;
 import com.example.application.views.mywalks.MainMyWalks;
 import com.example.application.views.volunteers.AddNewVolunteerByAdmin;
-//import com.example.application.views.volunteers.VolunteerView;
 import com.example.application.views.allwalks.AllWalksView;
 import com.example.application.views.dogs.MainDogsView;
 import com.example.application.views.gallery.GalleryView;
 import com.example.application.views.myaccount.MyAccountView;
 import com.example.application.views.home.MydogshelterView;
-import com.example.application.views.mywalks.MyWalksView;
 import com.example.application.views.volunteers.edit.MainVolunteersView;
-import com.example.application.views.other.WalksaddView;
+import com.example.application.views.about.AboutUsView;
 import com.example.application.views.walkthedog.WalkthedogView;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.contextmenu.MenuItem;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.Scroller;
@@ -39,6 +33,8 @@ import java.util.Optional;
 
 /**
  * The main view is a top-level placeholder for other views.
+ *
+ *
  */
 public class MainLayout extends AppLayout {
 
@@ -73,15 +69,12 @@ public class MainLayout extends AppLayout {
         H1 appName = new H1("My Dog Shelter");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
-
         Scroller scroller = new Scroller(createNavigation());
-
         addToDrawer(header, scroller, createFooter());
     }
 
     private AppNav createNavigation() {
-        // AppNav is not yet an official component.
-        // For documentation, visit https://github.com/vaadin/vcf-nav#readme
+
         AppNav nav = new AppNav();
 
         if (accessChecker.hasAccess(MydogshelterView.class)) {
@@ -119,12 +112,6 @@ public class MainLayout extends AppLayout {
 
         }
 
-
-
-//        if (accessChecker.hasAccess(VolunteerView.class)) {
-//            nav.addItem(new AppNavItem("Volunteers", VolunteerView.class, "la la-align-justify"));
-//
-//        }
         if (accessChecker.hasAccess(MainVolunteersView.class)) {
             nav.addItem(new AppNavItem("Volunteers edit", MainVolunteersView.class, "la la-align-justify"));
 
@@ -137,15 +124,12 @@ public class MainLayout extends AppLayout {
             nav.addItem(new AppNavItem("My walks", MainMyWalks.class, "la la-align-justify"));
 
         }
-//        if (accessChecker.hasAccess(NewwalkView.class)) {
-//            nav.addItem(new AppNavItem("New walk", NewwalkView.class, "la la-align-justify"));
-//
-//        }
 
-        if (accessChecker.hasAccess(WalksaddView.class)) {
-            nav.addItem(new AppNavItem("Walks/add", WalksaddView.class, "la la-file"));
+        if (accessChecker.hasAccess(AboutUsView.class)) {
+            nav.addItem(new AppNavItem("About us", AboutUsView.class, "la la-file"));
 
         }
+
 
         return nav;
     }

@@ -7,6 +7,7 @@ import com.example.application.data.service.DogService;
 import com.example.application.data.service.GalleryService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.gallery.GalleryViewCard;
+import com.example.application.views.newwalk.NewWalkView;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.html.H2;
@@ -46,7 +47,8 @@ public class WalkthedogView extends Main implements HasComponents, HasStyle {
     GalleryService galleryService;
     RandomDogClient randomDogClient;
     DogService dogService;
-    public static String SELECTED_DOG_NAME = "";
+
+    public String SELECTED_DOG_NAME = "";
 
 
 

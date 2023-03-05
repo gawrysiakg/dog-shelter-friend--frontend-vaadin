@@ -14,16 +14,14 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.security.RolesAllowed;
 
-@Component
+//@Component
 @Route(value = "dogs", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 public class MainDogsView extends VerticalLayout {
 
     private final DogService dogService;
     private Grid<DogDto> grid = new Grid<>(DogDto.class);
-
     private TextField filter = new TextField();
-
     DogsView dogsViewForm;
 
     private Button addNewDog = new Button("Add new dog");
@@ -32,7 +30,6 @@ public class MainDogsView extends VerticalLayout {
         this.dogService = dogService;
         dogsViewForm = new DogsView(this, dogService);
 
-       // this.dogService=dogService;
         filter.setPlaceholder("Filter by title...");
         filter.setClearButtonVisible(true);
         filter.setValueChangeMode(ValueChangeMode.EAGER);

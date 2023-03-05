@@ -34,32 +34,29 @@ public class MainMyWalks extends VerticalLayout {
         currentPrincipalName = authentication.getName();
         grid.setColumns("id", "walkDate", "volunteerName", "dogName");
         createNewWalk.addClickListener(e -> {
-          //  UI.getCurrent().navigate(WalkthedogView.class);
+            UI.getCurrent().navigate(WalkthedogView.class);
         });
         HorizontalLayout toolbar = new HorizontalLayout(createNewWalk, cancelWalk);
+        HorizontalLayout mainContent = new HorizontalLayout(grid);
         cancelWalk.setVisible(false);
+        mainContent.setSizeFull();
         grid.setSizeFull();
         add(grid);
         setSizeFull();
         add(toolbar);
 
 
-//        grid.addSelectionListener(event ->{
-//       // grid.asSingleSelect().addValueChangeListener(event ->{
-//                    cancelWalk.setVisible(true);
-//                });
-//
-//        cancelWalk.addClickListener(e -> {
-//                    walkService.deleteWalk( grid.asSingleSelect().getValue().getId());
-//            refresh();
-//                });
+        grid.addSelectionListener(event ->{
+       // grid.asSingleSelect().addValueChangeListener(event ->{
+                    cancelWalk.setVisible(true);
+                });
 
-
-
+        cancelWalk.addClickListener(e -> {
+                    walkService.deleteWalk( grid.asSingleSelect().getValue().getId());
+            refresh();
+                });
 
             refresh();
-
-
     }
     private void refresh() {
         grid.setItems(walkService.fetchPlannedWalksForVolunteer(currentPrincipalName));
