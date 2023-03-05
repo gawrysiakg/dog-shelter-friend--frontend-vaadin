@@ -1,54 +1,48 @@
 package com.example.application.data.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
+import java.io.Serializable;
+import java.util.Objects;
 
-@MappedSuperclass
-public abstract class AbstractEntity {
+    @MappedSuperclass
+    public abstract class AbstractEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idgenerator")
-    // The initial value is to account for data.sql demo data ids
-    @SequenceGenerator(name = "idgenerator", initialValue = 1000)
-    private Long id;
+        @Id
+        private Long id;
 
-    @Version
-    private int version;
+        @Version
+        private int version;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    @Override
-    public int hashCode() {
-        if (getId() != null) {
-            return getId().hashCode();
+        public Long getId() {
+            return id;
         }
-        return super.hashCode();
+
+        public int getVersion() {
+            return version;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, version);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            AbstractEntity that = (AbstractEntity) o;
+            return version == that.version &&
+                    Objects.equals(id, that.id);
+        }
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof AbstractEntity)) {
-            return false; // null or other class
-        }
-        AbstractEntity other = (AbstractEntity) obj;
-
-        if (getId() != null) {
-            return getId().equals(other.getId());
-        }
-        return super.equals(other);
-    }
-}

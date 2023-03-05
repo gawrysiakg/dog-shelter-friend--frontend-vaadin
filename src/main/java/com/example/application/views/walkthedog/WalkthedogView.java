@@ -7,6 +7,7 @@ import com.example.application.data.service.DogService;
 import com.example.application.data.service.GalleryService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.gallery.GalleryViewCard;
+import com.example.application.views.newwalk.NewWalkView;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.html.H2;
@@ -33,21 +34,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @PageTitle("Walk the dog")
 @Route(value = "walks/create", layout = MainLayout.class)
-@PermitAll
+//@PermitAll
+@RolesAllowed({"ADMIN", "USER"})
 public class WalkthedogView extends Main implements HasComponents, HasStyle {
 
     private OrderedList imageContainer;
-
     GalleryService galleryService;
-
     RandomDogClient randomDogClient;
-
     DogService dogService;
-   // private String randomDogByBreed = "https://dog.ceo/api/breed/hound/images/random";
+
+    public String SELECTED_DOG_NAME = "";
+
 
 
     public WalkthedogView(GalleryService galleryService, DogService dogService, RandomDogClient randomDogClient) {
@@ -63,14 +65,6 @@ public class WalkthedogView extends Main implements HasComponents, HasStyle {
         all.stream().forEach(element -> {
             imageContainer.add(new WalkthedogViewCardInfo( element, randomDogClient));
 
-//            Image image=new Image(element.getUrl(), "no url");
-//            // com.vaadin.flow.component.html.Image image =
-//            //new com.vaadin.flow.component.html.Image(element.getUrl(), "no url");
-//            image.setMaxHeight(40, Unit.PERCENTAGE);
-//            image.setMaxWidth(40, Unit.PERCENTAGE);
-            //setHorizontalComponentAlignment(Alignment.CENTER);
-            //setAlignItems(FlexComponent.Alignment.CENTER);
-            // add(image);
         } );
     }
 
@@ -84,19 +78,16 @@ public class WalkthedogView extends Main implements HasComponents, HasStyle {
         VerticalLayout headerContainer = new VerticalLayout();
         H2 header = new H2("Choose the dog and take him for a walk");
         header.addClassNames(Margin.Bottom.NONE, Margin.Top.XLARGE, FontSize.XXXLARGE);
-        Paragraph description = new Paragraph("Just click CREATE WALK button");
+        Paragraph description = new Paragraph("Click Walk the dog button");
         description.addClassNames(Margin.Bottom.XLARGE, Margin.Top.NONE, TextColor.SECONDARY);
         headerContainer.add(header, description);
 
-        Select<String> sortBy = new Select<>();
-        sortBy.setLabel("Sort by");
-        sortBy.setItems("Popularity", "Newest first", "Oldest first");
-        sortBy.setValue("Popularity");
+
 
         imageContainer = new OrderedList();
         imageContainer.addClassNames(Gap.MEDIUM, Display.GRID, ListStyleType.NONE, Margin.NONE, Padding.NONE);
 
-        container.add(headerContainer, sortBy);
+        container.add(headerContainer);
         add(container, imageContainer);
 
     }

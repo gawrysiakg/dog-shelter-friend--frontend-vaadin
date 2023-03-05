@@ -18,6 +18,8 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 import com.vaadin.flow.theme.lumo.LumoUtility.Width;
+import org.springframework.stereotype.Component;
+
 
 public class WalkthedogViewCard extends ListItem {
 

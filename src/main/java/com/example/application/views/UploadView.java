@@ -4,17 +4,19 @@ import com.example.application.data.entity.ImageDto;
 import com.example.application.data.service.GalleryService;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.security.PermitAll;
-
-@Route("upload")
-@PermitAll
+import javax.annotation.security.RolesAllowed;
+@PageTitle("Add photo")
+@Route(value = "upload", layout = MainLayout.class)
+@RolesAllowed("ADMIN")
 public class UploadView extends VerticalLayout {
 
     private GalleryService galleryService;
@@ -22,10 +24,16 @@ public class UploadView extends VerticalLayout {
     @Autowired
     public UploadView(GalleryService galleryService) {
         this.galleryService = galleryService;
+
         setAlignItems(Alignment.AUTO);
+        H3 a = new H3("Enter link to the picture on Your hard drive: ");
+        add(a);
         Label label = new Label();
+        label.addClassName("button-layout");
         TextField textField = new TextField();
         Button button = new Button("Upload");
+        button.addClassName("button-layout");
+        button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         textField.setTitle("Enter image url, for example C:\\files\\dog1.jpg");
         textField.setHeight(80, Unit.PIXELS);
         textField.setWidth(400, Unit.PIXELS);

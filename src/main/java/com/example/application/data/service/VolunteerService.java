@@ -4,8 +4,8 @@ import com.example.application.data.client.VolunteerClient;
 import com.example.application.data.entity.VolunteerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -14,6 +14,8 @@ public class VolunteerService {
 
     @Autowired
     VolunteerClient volunteerClient;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public List<VolunteerDto> fetchVolunteers() {
         return volunteerClient.getVolunteers();
@@ -28,13 +30,13 @@ public class VolunteerService {
     }
 
 
-
     public void createVolunteer(VolunteerDto volunteerDto) {
+        volunteerDto.setPassword(passwordEncoder.encode(volunteerDto.getPassword()));
         volunteerClient.addNewVolunteer(volunteerDto);
     }
 
     public VolunteerDto updateUser(VolunteerDto volunteerDto) {
-
+       // volunteerDto.setPassword(passwordEncoder.encode(volunteerDto.getPassword()));
         return volunteerClient.updateVolunteer(volunteerDto);
     }
 

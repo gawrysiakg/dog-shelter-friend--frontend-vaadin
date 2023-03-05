@@ -1,51 +1,49 @@
-package com.example.application.views.myaccount;
+package com.example.application.views.login;
 
-import com.example.application.data.entity.SamplePerson;
+import com.example.application.data.Role;
 import com.example.application.data.entity.VolunteerDto;
-import com.example.application.data.service.SamplePersonService;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.customfield.CustomField;
-import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import javax.annotation.security.PermitAll;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 
-@PageTitle("My account")
-@Route(value = "volunteers/details", layout = MainLayout.class)
-@PermitAll
-@Uses(Icon.class)
-public class MyaccountView extends Div {
+@PageTitle("Register")
+@Route(value = "register", layout = MainLayout.class)
+@AnonymousAllowed
+public class RegisterView extends Div{//Composite Vertical layout
+
 
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
     private TextField name = new TextField("Username");
     private TextField password = new TextField("Password");
     private EmailField email = new EmailField("Email address");
-    private PhoneNumberField phone = new PhoneNumberField("Phone number");
-
-
+    private IntegerField phone = new IntegerField("phone");
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");
 
     private Binder<VolunteerDto> binder = new Binder<>(VolunteerDto.class);
 
-    public MyaccountView(VolunteerService volunteerService) {
-        addClassName("myaccount-view");
+
+
+    public RegisterView(VolunteerService volunteerService) {
+        addClassName("newwalk-view");
 
         add(createTitle());
         add(createFormLayout());
@@ -56,9 +54,31 @@ public class MyaccountView extends Div {
 
         cancel.addClickListener(e -> clearForm());
         save.addClickListener(e -> {
-            volunteerService.updateUser(binder.getBean());
-            Notification.show(binder.getBean().getClass().getSimpleName() + " details stored.");
+            VolunteerDto volunteerDto = new VolunteerDto();
+            volunteerDto.setFirstName(firstName.getValue());
+            volunteerDto.setLastName(lastName.getValue());
+            volunteerDto.setName(name.getValue());
+            volunteerDto.setPassword(password.getValue());
+            volunteerDto.setEmail(email.getValue());
+            volunteerDto.setPhone(phone.getValue());
+            volunteerDto.setRole(Role.USER);
+
+            if(volunteerService.fetchVolunteers().size()==0){
+                volunteerDto.setRole(Role.ADMIN);
+            }
+//            else {
+//                volunteerDto.setRole(Role.USER);
+//            }
+            volunteerService.createVolunteer(volunteerDto);
+            VolunteerDto fromRepo = volunteerService.fetchByUsername(volunteerDto.getName());
+            if(fromRepo==null){
+                Notification.show("Not registered", 1500, Notification.Position.MIDDLE);
+            } else {
+                Notification.show(fromRepo.getName()+ " registered. Now log in");
+            }
+
             clearForm();
+            UI.getCurrent().navigate("login");
         });
     }
 
@@ -66,14 +86,14 @@ public class MyaccountView extends Div {
         binder.setBean(new VolunteerDto());
     }
 
-    private Component createTitle() {
-        return new H3("Personal information");
+    private com.vaadin.flow.component.Component createTitle() {
+        return new H3("New volunteer form");
     }
 
-    private Component createFormLayout() {
+    private com.vaadin.flow.component.Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
         email.setErrorMessage("Please enter a valid email address");
-        formLayout.add(firstName, lastName, name, password, phone, email);
+        formLayout.add(firstName, lastName, name, password, email, phone);
         return formLayout;
     }
 
@@ -86,6 +106,7 @@ public class MyaccountView extends Div {
         return buttonLayout;
     }
 
+    //todo
     private static class PhoneNumberField extends CustomField<String> {
         private ComboBox<String> countryCode = new ComboBox<>();
         private TextField number = new TextField();
@@ -95,7 +116,7 @@ public class MyaccountView extends Div {
             countryCode.setWidth("120px");
             countryCode.setPlaceholder("Country");
             countryCode.setAllowedCharPattern("[\\+\\d]");
-            countryCode.setItems("+354", "+91", "+62", "+98", "+964", "+353", "+44", "+972", "+39", "+225");
+            countryCode.setItems("+48", "+47", "+45", "+98", "+964", "+353", "+44", "+972", "+39", "+225");
             countryCode.addCustomValueSetListener(e -> countryCode.setValue(e.getDetail()));
             number.setAllowedCharPattern("\\d");
             HorizontalLayout layout = new HorizontalLayout(countryCode, number);
@@ -127,5 +148,4 @@ public class MyaccountView extends Div {
             }
         }
     }
-
 }

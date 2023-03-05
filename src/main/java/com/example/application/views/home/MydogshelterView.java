@@ -1,4 +1,4 @@
-package com.example.application.views.mydogshelter;
+package com.example.application.views.home;
 
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.html.H2;
