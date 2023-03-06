@@ -1,0 +1,21 @@
+.temperatureDiv{
+    display: block;
+
+
+    margin: 0 auto;
+    max-width: 1024px;
+    padding: 0 var(--lumo-space-l);
+}
+
+.home{
+
+    margin: 0 auto;
+
+    padding: 0 var(--lumo-space-l);
+}
+.img1{
+
+    margin-top:  0px;
+
+    padding: 0 var(--lumo-space-l);
+}

@@ -1,7 +1,8 @@
-package com.example.application.views;
+package com.example.application.views.gallery;
 
 import com.example.application.data.entity.ImageDto;
 import com.example.application.data.service.GalleryService;
+import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;

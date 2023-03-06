@@ -6,6 +6,7 @@ import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.allwalks.MainAllWalks;
+import com.example.application.views.gallery.UploadView;
 import com.example.application.views.mywalks.MainMyWalks;
 import com.example.application.views.volunteers.AddNewVolunteerByAdmin;
 import com.example.application.views.allwalks.AllWalksView;
@@ -16,7 +17,6 @@ import com.example.application.views.home.MydogshelterView;
 import com.example.application.views.volunteers.edit.MainVolunteersView;
 import com.example.application.views.about.AboutUsView;
 import com.example.application.views.walkthedog.WalkthedogView;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -66,7 +66,7 @@ public class MainLayout extends AppLayout {
     }
 
     private void addDrawerContent() {
-        H1 appName = new H1("My Dog Shelter");
+        H1 appName = new H1("Dog Shelter Friend");
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
         Scroller scroller = new Scroller(createNavigation());
@@ -86,34 +86,24 @@ public class MainLayout extends AppLayout {
 
         }
         if (accessChecker.hasAccess(UploadView.class)) {
-            nav.addItem(new AppNavItem("Add photo", UploadView.class, "la la-align-justify"));
-
+            nav.addItem(new AppNavItem("Add photo", UploadView.class, "la la-tablet"));
         }
         if (accessChecker.hasAccess(WalkthedogView.class)) {
             nav.addItem(new AppNavItem("Walk the dog", WalkthedogView.class, "la la-walking"));
-
-        }
-        if (accessChecker.hasAccess(MyAccountView.class)) {
-            nav.addItem(new AppNavItem("My account", MyAccountView.class, "la la-user"));
-
         }
 
-        if (accessChecker.hasAccess(AddNewVolunteerByAdmin.class)) {
-            nav.addItem(new AppNavItem("Add new volunteer", AddNewVolunteerByAdmin.class, "la la-user"));
-
-        }
         if (accessChecker.hasAccess(MainDogsView.class)) {
             nav.addItem(new AppNavItem("Dogs", MainDogsView.class, "la la-filter"));
-
-        }
-
-        if (accessChecker.hasAccess(MainAllWalks.class)) {
-            nav.addItem(new AppNavItem("Walks", MainAllWalks.class, "la la-filter"));
-
         }
 
         if (accessChecker.hasAccess(MainVolunteersView.class)) {
-            nav.addItem(new AppNavItem("Volunteers edit", MainVolunteersView.class, "la la-align-justify"));
+            nav.addItem(new AppNavItem("Volunteers", MainVolunteersView.class, "la la-align-justify"));
+        }
+        if (accessChecker.hasAccess(AddNewVolunteerByAdmin.class)) {
+            nav.addItem(new AppNavItem("Add new volunteer", AddNewVolunteerByAdmin.class, "la la-user"));
+        }
+        if (accessChecker.hasAccess(MainAllWalks.class)) {
+            nav.addItem(new AppNavItem("Walks", MainAllWalks.class, "la la-align-justify"));
 
         }
         if (accessChecker.hasAccess(AllWalksView.class)) {
@@ -122,6 +112,10 @@ public class MainLayout extends AppLayout {
         }
         if (accessChecker.hasAccess(MainMyWalks.class)) {
             nav.addItem(new AppNavItem("My walks", MainMyWalks.class, "la la-align-justify"));
+
+        }
+        if (accessChecker.hasAccess(MyAccountView.class)) {
+            nav.addItem(new AppNavItem("My account", MyAccountView.class, "la la-user"));
 
         }
 

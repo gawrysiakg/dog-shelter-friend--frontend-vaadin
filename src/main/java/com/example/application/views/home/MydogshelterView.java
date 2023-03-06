@@ -1,21 +1,38 @@
 package com.example.application.views.home;
 
 import com.example.application.views.MainLayout;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.Unit;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
 
-@PageTitle("My dog shelter")
+@PageTitle("Dog Shelter Friend")
 @Route(value = "", layout = MainLayout.class)
 @AnonymousAllowed
-public class MydogshelterView extends VerticalLayout {
+public class MydogshelterView extends VerticalLayout {//VerticalLayout
 
     public MydogshelterView() {
+        addClassName("home");
+        Image img1 = new Image("images/dsf3.png", "placeholder plant");
+        img1.setClassName("img1");
+
+        add(img1);
+        //todo
+        Div div = new Div ();
+        div.setClassName("home");
+        div.setSizeFull();
+        div.setClassName("temperatureDiv");
+        H3 conditions = new H3("Current Conditions");
+        H3 temperature = new H3("Temperature");
+        H3 wind = new H3("Wind Speed");
+        div.add(conditions, temperature, wind);
+
+        add(div);
         setSpacing(false);
 
         Image img = new Image("images/dogs-background.png", "placeholder plant");

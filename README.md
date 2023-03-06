@@ -2,7 +2,7 @@
 
 ## Opis projektu:
 
-Projekt pełni zadania zarządzania danymi w bazie danych schroniska dla psów, przetrzymuje dane na temat wolontariuszy, psów i zaplanowanych przez wolontariuszy spacerów z psami. Posiada funkcję cyklicznego wysyłania maili do danych wolontariuszy i administratora.  
+Projekt zarządza danymi w bazie danych schroniska dla psów, przetrzymuje dane na temat wolontariuszy, psów i zaplanowanych przez wolontariuszy spacerów z psami. Posiada funkcję cyklicznego wysyłania maili do danych wolontariuszy i administratora.  
 Każdy wolontariusz ma możliwość założenia konta, przeglądania zdjęć w galerii oraz wybrania psa którym zajmie się podczas spaceru. Użytkownik, po wybraniu pupila którym się zajmie i kliknięciu 'Walk the dog' rejestruje w systemie swoją chęć wyprowadzenia psa w wybranym dniu. Otrzyma także powiadomienie e-mail wysłane na maila podanego przy rejestracji w serwisie.
 
 Pierwszy użytkownik zapisany do bazy danych otrzymuje automatycznie rolę ADMIN, następni zakładający konto mają już automatycznie przydzieloną rolę USER. Admin ma możliwość zmiany roli każdmu USEROWI.
@@ -29,11 +29,14 @@ oraz:
 - Spring Boot
 - Hibernate
 - REST API
-- JDBC
+- MySQL
 - JUnit5
 - Mockito
 - Vaadin (frontend)
 - Lombok
+- external Cloudinary API
+- JavaMailSender
+
 
 ### Cechy aplikacji
 
@@ -44,6 +47,7 @@ oraz:
 - Wzorce projektowe:
   - Fasada
   - Builder
+  - Singleton
 
 
 
