@@ -1,4 +1,5 @@
 @import url('./main-layout.css');
+@import url('./views/home-view.css');
 @import url('./views/gallery-view.css');
 @import url('./views/walkthedog-view.css');
 @import url('./views/myaccount-view.css');
