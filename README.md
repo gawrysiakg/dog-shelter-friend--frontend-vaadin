@@ -1,5 +1,8 @@
 ## Dog Shelter Friend - frontend
 
+[![Watch the video](src/main/resources/image/shelter.png)](https://www.youtube.com/watch?v=cN8vlphUlVU)
+
+
 ## Opis projektu:
 
 Program zarządza danymi w bazie danych schroniska dla psów, przetrzymuje dane na temat wolontariuszy, psów i zaplanowanych przez wolontariuszy spacerów z psami. Posiada funkcję cyklicznego wysyłania maili do danych wolontariuszy i administratora.  
