@@ -17,6 +17,7 @@ import com.example.application.views.home.MydogshelterView;
 import com.example.application.views.volunteers.edit.MainVolunteersView;
 import com.example.application.views.about.AboutUsView;
 import com.example.application.views.walkthedog.WalkthedogView;
+import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -125,6 +126,7 @@ public class MainLayout extends AppLayout {
         }
 
 
+
         return nav;
     }
 
@@ -178,4 +180,6 @@ public class MainLayout extends AppLayout {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
+
+
 }

@@ -20,9 +20,12 @@ public class BackendConfig {
     @Value("${walks.api.endpoint}")
     private String walksEndpoint;
 
+    @Value("${weather.api.endpoint}")
+    private String weatherEndpoint;
+
     @Value("${gallery.api.endpoint}")
     private String galleryEndpoint;
-    @Value("randomDog.api.endpoint")
+    @Value("${randomDog.api.endpoint}")
     private String randomDogEndpoint;
 
 }
