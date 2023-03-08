@@ -15,10 +15,6 @@ public class DogService {
 
     private final DogClient dogClient;
 
-//    public Page<DogDto> list(Pageable pageable, DogsView.Filters filters) {
-//        return (Page<DogDto>) dogClient.getDogs(pageable);
-//    }
-
     public List<DogDto> getAllDogs() {
         return dogClient.getDogs();
     }
@@ -26,7 +22,6 @@ public class DogService {
     public List<DogDto> getAllDogsByBreed(DogBreedDto dto) {
         return dogClient.getDogsByBreed(dto);
     }
-
 
     public DogDto get(Long id) {
         return dogClient.getDogById(id);
@@ -43,7 +38,6 @@ public class DogService {
     public void update(DogDto dog) {
         dogClient.updateDog(dog);
     }
-
     public void deleteDog(Long id) {
         dogClient.deleteDog(id);
     }
