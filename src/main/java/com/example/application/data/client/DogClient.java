@@ -69,7 +69,7 @@ public class DogClient {
 
     public DogDto getDogByName(String name) {
         return restTemplate.getForObject(
-                backendConfig.getAppEndpoint() + backendConfig.getDogsEndpoint()+"/"+name,
+                backendConfig.getAppEndpoint() + backendConfig.getDogsEndpoint()+"/name/"+name,
                 DogDto.class);
     }
 }
