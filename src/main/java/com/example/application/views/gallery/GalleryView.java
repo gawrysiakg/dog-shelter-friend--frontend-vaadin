@@ -32,7 +32,6 @@ public class GalleryView extends Main implements HasComponents, HasStyle {
     private GalleryService galleryService;
 
 
-
     public GalleryView(GalleryService galleryService) {
         this.galleryService=galleryService;
         constructUI();
@@ -42,11 +41,8 @@ public class GalleryView extends Main implements HasComponents, HasStyle {
             imageContainer.add(new GalleryViewCard("", element.getUrl()));
             addClickListener( e-> {
             });
-
         } );
-//        imageContainer.add(new GalleryViewCard("Dog",
-//                "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"));
-//
+
     }
 
     private void constructUI() {

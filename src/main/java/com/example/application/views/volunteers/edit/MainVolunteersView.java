@@ -10,12 +10,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
-import org.springframework.stereotype.Component;
-
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 
-//@Component
 @Route(value = "volunteers", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 @PermitAll
@@ -23,27 +20,18 @@ public class MainVolunteersView extends VerticalLayout {
 
     private final VolunteerService volunteerService;
     private Grid<VolunteerDto> grid = new Grid<>(VolunteerDto.class);
-
     private TextField filter = new TextField();
-
     VolunteersEditView volunteersEditView;
-
     private Button addNewVolunteer = new Button("Add new volunteer");
+
 
     public MainVolunteersView(VolunteerService volunteerService){
         this.volunteerService = volunteerService;
-       // this.volunteersEditView=volunteersEditView;
         volunteersEditView = new VolunteersEditView(this, volunteerService);
-
-
-
-
-        // this.dogService=dogService;
         filter.setPlaceholder("Filter by title...");
         filter.setClearButtonVisible(true);
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.setClearButtonVisible(true);
-
         filter.addValueChangeListener(e -> update());
         grid.setColumns("id", "firstName", "lastName", "name", "password", "email", "phone", "role");
 
@@ -52,7 +40,6 @@ public class MainVolunteersView extends VerticalLayout {
             volunteersEditView.setVolunteer(new VolunteerDto());    //dodajemy nowy obiekt do formularza
         });
         HorizontalLayout toolbar = new HorizontalLayout(filter, addNewVolunteer);
-
         HorizontalLayout mainContent = new HorizontalLayout(grid, volunteersEditView);
         mainContent.setSizeFull();
         grid.setSizeFull();
@@ -64,7 +51,6 @@ public class MainVolunteersView extends VerticalLayout {
         refresh();
         grid.asSingleSelect().addValueChangeListener(event -> volunteersEditView.setVolunteer(grid.asSingleSelect().getValue()));
     }
-
 
     public void refresh() {
         grid.setItems(volunteerService.fetchVolunteers());

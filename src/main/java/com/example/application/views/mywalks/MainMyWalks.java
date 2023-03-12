@@ -12,11 +12,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
-
 import javax.annotation.security.RolesAllowed;
 
-//@Component
 @Route(value = "walks/my", layout = MainLayout.class)
 @RolesAllowed({"ADMIN", "USER"})
 public class MainMyWalks extends VerticalLayout {
@@ -34,8 +31,8 @@ public class MainMyWalks extends VerticalLayout {
         currentPrincipalName = authentication.getName();
         grid.setColumns("id", "walkDate", "volunteerName", "dogName");
         createNewWalk.addClickListener(e -> {
-            UI.getCurrent().navigate(WalkthedogView.class);
-        });
+                    UI.getCurrent().navigate(WalkthedogView.class);
+                 });
         HorizontalLayout toolbar = new HorizontalLayout(createNewWalk, cancelWalk);
         HorizontalLayout mainContent = new HorizontalLayout(grid);
         cancelWalk.setVisible(false);
@@ -45,15 +42,13 @@ public class MainMyWalks extends VerticalLayout {
         setSizeFull();
         add(toolbar);
 
-
         grid.addSelectionListener(event ->{
-       // grid.asSingleSelect().addValueChangeListener(event ->{
                     cancelWalk.setVisible(true);
                 });
 
         cancelWalk.addClickListener(e -> {
                     walkService.deleteWalk( grid.asSingleSelect().getValue().getId());
-            refresh();
+                    refresh();
                 });
 
             refresh();

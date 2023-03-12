@@ -8,8 +8,6 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
@@ -28,7 +26,6 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @AnonymousAllowed
 public class RegisterView extends Div{//Composite Vertical layout
 
-
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
     private TextField name = new TextField("Username");
@@ -37,18 +34,15 @@ public class RegisterView extends Div{//Composite Vertical layout
     private IntegerField phone = new IntegerField("phone");
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");
-
     private Binder<VolunteerDto> binder = new Binder<>(VolunteerDto.class);
 
 
 
     public RegisterView(VolunteerService volunteerService) {
         addClassName("newwalk-view");
-
         add(createTitle());
         add(createFormLayout());
         add(createButtonLayout());
-
         binder.bindInstanceFields(this);
         clearForm();
 
@@ -66,9 +60,7 @@ public class RegisterView extends Div{//Composite Vertical layout
             if(volunteerService.fetchVolunteers().size()==0){
                 volunteerDto.setRole(Role.ADMIN);
             }
-//            else {
-//                volunteerDto.setRole(Role.USER);
-//            }
+
             volunteerService.createVolunteer(volunteerDto);
             VolunteerDto fromRepo = volunteerService.fetchByUsername(volunteerDto.getName());
             if(fromRepo==null){

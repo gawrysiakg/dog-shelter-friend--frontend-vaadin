@@ -18,10 +18,6 @@ public class AboutUsView extends VerticalLayout {
     public AboutUsView() {
         setSpacing(false);
 
-//        Image img = new Image("icons/dog.png", "");
-//        img.setWidth("300px");
-//        add(img);
-
         H2 header = new H2("The dog shelter in Bialystok invites everyone willing to visit our dogs.");
         H2 header2 = new H2("If you want to become a volunteer" +
                 " and help us take care of animals and take them for a walk - just sign up.");

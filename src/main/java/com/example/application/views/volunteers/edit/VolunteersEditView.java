@@ -12,12 +12,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-import org.springframework.stereotype.Component;
-
 import javax.annotation.security.RolesAllowed;
 
 @Route(value = "volunteers/edit", layout = MainLayout.class)
-//@Component
 @RolesAllowed("ADMIN")
 public class VolunteersEditView extends FormLayout {
 
@@ -41,14 +38,10 @@ public class VolunteersEditView extends FormLayout {
         role.setItems(Role.ADMIN, Role.USER);
         HorizontalLayout buttons = new HorizontalLayout(save, delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
         add(id, firstName, lastName, name, password, email, phone, role, buttons);
-
         save.addClickListener(event -> save());
         delete.addClickListener(event -> delete());
     }
-
-
 
     private VolunteerDto volunteerDtoFromFields(){
         VolunteerDto dto =new VolunteerDto();
@@ -62,6 +55,7 @@ public class VolunteersEditView extends FormLayout {
         dto.setRole(role.getValue());
         return dto;
     }
+
     private void save() {
         service.createVolunteer(volunteerDtoFromFields());
         mainVolunteersView.refresh();
@@ -76,7 +70,6 @@ public class VolunteersEditView extends FormLayout {
     }
 
     public void setVolunteer(VolunteerDto dto) {
-       // binder.setBean(dto);
         if (dto == null) {
             setVisible(false);
         } else {
@@ -84,11 +77,4 @@ public class VolunteersEditView extends FormLayout {
             id.focus();
         }
     }
-
-
-
-
-
-
-
 }

@@ -5,11 +5,11 @@ import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.Uses;
-import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
@@ -17,12 +17,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
 import javax.annotation.security.RolesAllowed;
-
 
 @PageTitle("Add new volunteer with role")
 @Route(value = "volunteers/add/setrole", layout = MainLayout.class)
@@ -39,7 +36,6 @@ public class AddNewVolunteerByAdmin extends VerticalLayout {
     private IntegerField phone = new IntegerField("phone");
     private ComboBox<Role> role = new ComboBox<Role>("role");
     private  final VolunteerService volunteerService;
-
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");
 
@@ -47,16 +43,10 @@ public class AddNewVolunteerByAdmin extends VerticalLayout {
 
     public AddNewVolunteerByAdmin(VolunteerService volunteerService) {
         this.volunteerService=volunteerService;
-       // this.volunteerDto=volunteerDto;
         addClassName("myaccount-view");
-        add(createTitle());
         add(createFormLayout());
-        add(createButtonLayout());
         role.setItems(Role.ADMIN, Role.USER);
-        add(id, firstName, lastName, name, password, phone, email, role);
-
         cancel.addClickListener(e -> clearForm());
-
         save.addClickListener(e -> {
             save();
             Notification.show( " Volunteer details stored.");
@@ -79,27 +69,30 @@ public class AddNewVolunteerByAdmin extends VerticalLayout {
     }
 
     private void clearForm() {
-
-    }
-
-    private Component createTitle() {
-        return new H3("Create new volunteer");
     }
 
     private Component createFormLayout() {
-        FormLayout formLayout = new FormLayout();
+        H3 h3=new H3("Create new volunteer");
+        VerticalLayout formLayout = new VerticalLayout();
+        formLayout.setAlignItems(Alignment.CENTER);
         email.setErrorMessage("Please enter a valid email address");
-        formLayout.add(id, firstName, lastName, name, password, phone, email, role);
-        return formLayout;
-    }
+        id.setWidth(350, Unit.PIXELS);
+        firstName.setWidth(350, Unit.PIXELS);
+        lastName.setWidth(350, Unit.PIXELS);
+        name.setWidth(350, Unit.PIXELS);
+        password.setWidth(350, Unit.PIXELS);
+        phone.setWidth(350, Unit.PIXELS);
+        email.setWidth(350, Unit.PIXELS);
+        role.setWidth(350, Unit.PIXELS);
 
-    private Component createButtonLayout() {
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.addClassName("button-layout");
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        save.setWidth(170, Unit.PIXELS);
+        cancel.setWidth(170, Unit.PIXELS);
         buttonLayout.add(save);
         buttonLayout.add(cancel);
-        return buttonLayout;
+        formLayout.add(h3, id, firstName, lastName, name, password, phone, email, role, buttonLayout);
+        return formLayout;
     }
-
 }

@@ -12,15 +12,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.security.RolesAllowed;
 
-//@Component
 @Route(value = "walks/all", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 public class MainAllWalks extends VerticalLayout {
-
 
 
     private Grid<WalkDto> grid = new Grid<>(WalkDto.class);

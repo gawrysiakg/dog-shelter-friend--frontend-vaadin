@@ -6,6 +6,7 @@ import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.allwalks.MainAllWalks;
+import com.example.application.views.doginfo.DogInfoView;
 import com.example.application.views.gallery.UploadView;
 import com.example.application.views.mywalks.MainMyWalks;
 import com.example.application.views.volunteers.AddNewVolunteerByAdmin;
@@ -17,7 +18,6 @@ import com.example.application.views.home.MydogshelterView;
 import com.example.application.views.volunteers.edit.MainVolunteersView;
 import com.example.application.views.about.AboutUsView;
 import com.example.application.views.walkthedog.WalkthedogView;
-import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -29,7 +29,6 @@ import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-
 import java.util.Optional;
 
 /**
@@ -40,17 +39,14 @@ import java.util.Optional;
 public class MainLayout extends AppLayout {
 
     private H2 viewTitle;
-
     private AuthenticatedUser authenticatedUser;
     private AccessAnnotationChecker accessChecker;
-
     private VolunteerService volunteerService;
 
     public MainLayout(AuthenticatedUser authenticatedUser, AccessAnnotationChecker accessChecker, VolunteerService volunteerService) {
         this.authenticatedUser = authenticatedUser;
         this.accessChecker = accessChecker;
         this.volunteerService = volunteerService;
-
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -59,10 +55,8 @@ public class MainLayout extends AppLayout {
     private void addHeaderContent() {
         DrawerToggle toggle = new DrawerToggle();
         toggle.getElement().setAttribute("aria-label", "Menu toggle");
-
         viewTitle = new H2();
         viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
-
         addToNavbar(true, toggle, viewTitle);
     }
 
@@ -80,6 +74,10 @@ public class MainLayout extends AppLayout {
 
         if (accessChecker.hasAccess(MydogshelterView.class)) {
             nav.addItem(new AppNavItem("Home", MydogshelterView.class, "la la-info"));
+
+        }
+        if (accessChecker.hasAccess(DogInfoView.class)) {
+            nav.addItem(new AppNavItem("Dog Info", DogInfoView.class, "la la-tablet"));
 
         }
         if (accessChecker.hasAccess(GalleryView.class)) {
@@ -126,7 +124,6 @@ public class MainLayout extends AppLayout {
         }
 
 
-
         return nav;
     }
 
@@ -139,7 +136,6 @@ public class MainLayout extends AppLayout {
                 VolunteerDto volunteerDto = maybeUser.get();
 
                 Avatar avatar = new Avatar(volunteerDto.getName());
-
                 avatar.setImage("icons/dog.png");
                 avatar.setThemeName("xsmall");
                 avatar.getElement().setAttribute("tabindex", "-1");
@@ -165,7 +161,6 @@ public class MainLayout extends AppLayout {
                 Anchor loginLink = new Anchor("login", "Sign in");
                 layout.add(loginLink);
             }
-
         }
         return layout;
     }
@@ -180,6 +175,4 @@ public class MainLayout extends AppLayout {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
-
-
 }

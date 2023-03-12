@@ -36,7 +36,6 @@ public class VolunteerService {
     }
 
     public VolunteerDto updateUser(VolunteerDto volunteerDto) {
-       // volunteerDto.setPassword(passwordEncoder.encode(volunteerDto.getPassword()));
         return volunteerClient.updateVolunteer(volunteerDto);
     }
 

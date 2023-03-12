@@ -13,11 +13,9 @@ public class GalleryService {
 
     private final GalleryClient galleryClient;
 
-
     public List<ImageDto> fetchImages() {
         return galleryClient.getImages();
     }
-
 
     public ImageDto uploadImage(String link) {
         return galleryClient.uploadImage(link);

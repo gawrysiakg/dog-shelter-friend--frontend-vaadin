@@ -27,5 +27,7 @@ public class BackendConfig {
     private String galleryEndpoint;
     @Value("${randomDog.api.endpoint}")
     private String randomDogEndpoint;
+    @Value("${dog.ninja.api.endpoint}")
+    private String dogNinjaApiEndpoint;
 
 }

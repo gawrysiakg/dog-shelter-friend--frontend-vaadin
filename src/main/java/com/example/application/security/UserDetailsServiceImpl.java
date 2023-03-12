@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl extends VolunteerDto implements UserDetailsService {
 
     private final VolunteerService volunteerService;
-   // private final PasswordEncoder passwordEncoder;
+
 
     public UserDetailsServiceImpl(VolunteerService volunteerService) {
         this.volunteerService = volunteerService;
@@ -36,10 +36,8 @@ public class UserDetailsServiceImpl extends VolunteerDto implements UserDetailsS
             throw new UsernameNotFoundException("No user present with username: " + username);
         } else {
 
-            return new org.springframework.security.core.userdetails.User(volunteerDto.getName(), volunteerDto.getPassword(),//hashed?
-                    //getAuthorities(volunteerDto));
+            return new org.springframework.security.core.userdetails.User(volunteerDto.getName(), volunteerDto.getPassword(),
                     Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + volunteerDto.getRole())));
-
         }
     }
 
