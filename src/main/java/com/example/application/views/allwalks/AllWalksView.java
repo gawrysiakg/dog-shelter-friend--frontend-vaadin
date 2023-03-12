@@ -10,15 +10,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.security.RolesAllowed;
-
-//@Component
 public class AllWalksView extends VerticalLayout {
 
     private TextField id = new TextField("id");
-
     private DatePicker walkDate = new DatePicker("walkDate");
     private TextField volunteerName = new TextField("volunteerName");
     private TextField dogName = new TextField("dogName");
@@ -88,7 +83,6 @@ public class AllWalksView extends VerticalLayout {
 
     public void setWalk(WalkDto walk) {
         binder.setBean(walk);
-
         if (walk == null) {
             setVisible(false);
         } else {

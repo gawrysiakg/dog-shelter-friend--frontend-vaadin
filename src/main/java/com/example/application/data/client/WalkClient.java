@@ -1,17 +1,14 @@
 package com.example.application.data.client;
 
 import com.example.application.data.config.BackendConfig;
-import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.entity.WalkDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor

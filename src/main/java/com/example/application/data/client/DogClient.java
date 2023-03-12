@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -49,24 +48,20 @@ public class DogClient {
     }
 
 
-
     public void addNewDog(DogDto dog) {
         restTemplate.postForObject(backendConfig.getAppEndpoint()+backendConfig.getDogsEndpoint(), dog, DogDto.class);
     }
     public void updateDog(DogDto dog) {
         restTemplate.patchForObject(backendConfig.getAppEndpoint()+backendConfig.getDogsEndpoint(), dog, DogDto.class);
     }
-
     public void deleteDog(Long id) {
         restTemplate.delete(backendConfig.getAppEndpoint()+backendConfig.getDogsEndpoint()+"/"+ id, DogDto.class);
     }
-
     public DogDto getDogById(Long id) {
        return restTemplate.getForObject(
                 backendConfig.getAppEndpoint() + backendConfig.getDogsEndpoint()+"/"+id,
                 DogDto.class);
     }
-
     public DogDto getDogByName(String name) {
         return restTemplate.getForObject(
                 backendConfig.getAppEndpoint() + backendConfig.getDogsEndpoint()+"/name/"+name,

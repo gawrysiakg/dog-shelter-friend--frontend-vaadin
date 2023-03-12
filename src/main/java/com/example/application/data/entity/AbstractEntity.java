@@ -11,7 +11,6 @@ import java.util.Objects;
 
         @Id
         private Long id;
-
         @Version
         private int version;
 

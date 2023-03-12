@@ -29,18 +29,14 @@ import javax.annotation.security.PermitAll;
 @Uses(Icon.class)
 public class MyAccountView extends VerticalLayout{
 
-
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
-    private TextField name = new TextField("username");
-    private TextField password = new TextField("Password");
     private TextField email = new TextField("E-mail");
     private IntegerField phone = new IntegerField("Phone number");
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");
-    VolunteerDto userLoggedIn;
+    private VolunteerDto userLoggedIn;
     private  final VolunteerService volunteerService;
-
 
 
     public MyAccountView(VolunteerService volunteerService) {
@@ -49,7 +45,7 @@ public class MyAccountView extends VerticalLayout{
         addClassName("myaccount-view");
 
         add(createTitle());
-        add(firstName, lastName, name, password, phone, email);
+        add(firstName, lastName, phone, email);
         add(createFormLayout());
         add(createButtonLayout());
 
@@ -57,36 +53,24 @@ public class MyAccountView extends VerticalLayout{
         String currentPrincipalName = authentication.getName();
 
         updateForm(currentPrincipalName);
-
         cancel.addClickListener(e -> UI.getCurrent().navigate(MydogshelterView.class));
         save.addClickListener(e -> {
             save();
             updateForm(currentPrincipalName);
-
             Notification.show(" Volunteer details stored.", 1500, Notification.Position.MIDDLE);
-
         });
-
     }
-
 
     private void save() {
         userLoggedIn.setFirstName(firstName.getValue());
         userLoggedIn.setLastName(lastName.getValue());
-        userLoggedIn.setName(name.getValue());
-        userLoggedIn.setPassword(password.getValue());
         userLoggedIn.setEmail(email.getValue());
         userLoggedIn.setPhone(phone.getValue());
-
         volunteerService.updateUser(userLoggedIn);
     }
 
-
-
     private void updateForm(String currentPrincipalName){
         userLoggedIn = volunteerService.fetchByUsername(currentPrincipalName);
-        name.setValue(userLoggedIn.getName());
-        password.setValue(userLoggedIn.getPassword());
         firstName.setValue(userLoggedIn.getFirstName());
         lastName.setValue(userLoggedIn.getLastName());
         email.setValue(userLoggedIn.getEmail());
@@ -100,7 +84,7 @@ public class MyAccountView extends VerticalLayout{
     private Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
         email.setErrorMessage("Please enter a valid email address");
-        formLayout.add(firstName, lastName, name, password, phone, email);
+        formLayout.add(firstName, lastName, phone, email);// name, password,
         return formLayout;
     }
 
@@ -112,6 +96,4 @@ public class MyAccountView extends VerticalLayout{
         buttonLayout.add(cancel);
         return buttonLayout;
     }
-
-
 }

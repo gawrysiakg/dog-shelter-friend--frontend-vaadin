@@ -10,9 +10,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-
 import java.time.LocalDate;
-
 
 @PageTitle("Dog Shelter Friend")
 @Route(value = "", layout = MainLayout.class)
@@ -20,7 +18,6 @@ import java.time.LocalDate;
 public class MydogshelterView extends VerticalLayout {
 
     private WeatherService weatherService;
-
     private Weather weather;
 
     public MydogshelterView(WeatherService weatherService) {
@@ -30,9 +27,7 @@ public class MydogshelterView extends VerticalLayout {
         Image img1 = new Image("images/sad3.png", "placeholder plant");
         img1.setClassName("img1");
         add(img1);
-
         weatherLayout();
-
         setSpacing(false);
 
         Image img = new Image("images/dogs-background.png", "placeholder plant");

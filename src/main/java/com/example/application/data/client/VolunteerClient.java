@@ -1,12 +1,10 @@
 package com.example.application.data.client;
 
 import com.example.application.data.config.BackendConfig;
-import com.example.application.data.entity.DogDto;
 import com.example.application.data.entity.VolunteerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +16,6 @@ public class VolunteerClient {
 
     private final RestTemplate restTemplate;
     private final BackendConfig backendConfig;
-
 
     public List<VolunteerDto> getVolunteers() {
         VolunteerDto[] response = restTemplate.getForObject(

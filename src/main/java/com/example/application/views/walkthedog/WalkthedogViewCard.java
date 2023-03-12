@@ -18,7 +18,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Overflow;
 import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 import com.vaadin.flow.theme.lumo.LumoUtility.Width;
-import org.springframework.stereotype.Component;
 
 
 public class WalkthedogViewCard extends ListItem {
@@ -36,13 +35,11 @@ public class WalkthedogViewCard extends ListItem {
         image.setWidth("100%");
         image.setSrc(url);
         image.setAlt(text);
-
         div.add(image);
 
         Span header = new Span();
         header.addClassNames(FontSize.XLARGE, FontWeight.SEMIBOLD);
         header.setText("Dog name:");
-
         Span subtitle = new Span();
         subtitle.addClassNames(FontSize.SMALL, TextColor.SECONDARY);
         subtitle.setText("About the dog...");
@@ -54,9 +51,7 @@ public class WalkthedogViewCard extends ListItem {
         Span badge = new Span();
         badge.getElement().setAttribute("theme", "badge");
         badge.setText("Walk the dog");
-       // badge.addClickListener( )
 
         add(div, header, subtitle, description, badge);
-
     }
 }

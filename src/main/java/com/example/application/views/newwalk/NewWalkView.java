@@ -32,7 +32,6 @@ import java.time.LocalDate;
 @Uses(Icon.class)
 public class NewWalkView extends VerticalLayout{
 
-
     private DatePicker dateOfWalk = new DatePicker("Choose day of walk");
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");
@@ -40,9 +39,8 @@ public class NewWalkView extends VerticalLayout{
     private DogService dogService;
     private WalkService walkService;
     private VolunteerDto activeVolunteer;
-
-
     public static String dogForWalk = "";
+
 
     public NewWalkView(VolunteerService volunteerService, DogService dogService, WalkService walkService){
         this.volunteerService = volunteerService;
@@ -56,7 +54,6 @@ public class NewWalkView extends VerticalLayout{
         add(createFormLayout());
         add(createButtonLayout());
         add(createTitle());
-
 
         cancel.addClickListener(e -> UI.getCurrent().navigate(WalkthedogView.class));
 
@@ -74,7 +71,6 @@ public class NewWalkView extends VerticalLayout{
             }
         });
     }
-
 
     private Component createTitle() {
         VerticalLayout verticalLayout = new VerticalLayout();
