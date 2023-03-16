@@ -8,7 +8,7 @@ import java.util.Objects;
 
     @MappedSuperclass
     public abstract class AbstractEntity implements Serializable {
-
+        //work in progress
         @Id
         private Long id;
         @Version

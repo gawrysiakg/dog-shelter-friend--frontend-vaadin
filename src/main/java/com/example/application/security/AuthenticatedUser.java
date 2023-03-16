@@ -1,5 +1,7 @@
 package com.example.application.security;
 
+import com.example.application.data.Role;
+import com.example.application.data.entity.DogDto;
 import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.vaadin.flow.spring.security.AuthenticationContext;
@@ -28,5 +30,6 @@ public class AuthenticatedUser {
     public void logout() {
         authenticationContext.logout();
     }
+
 
 }

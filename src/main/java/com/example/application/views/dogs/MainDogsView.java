@@ -27,7 +27,7 @@ public class MainDogsView extends VerticalLayout {
         this.dogService = dogService;
         dogsViewForm = new DogsView(this, dogService);
 
-        filter.setPlaceholder("Filter by title...");
+        filter.setPlaceholder("Filter by name...");
         filter.setClearButtonVisible(true);
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(e -> update());

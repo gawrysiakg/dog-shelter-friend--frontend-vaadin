@@ -29,7 +29,6 @@ public class VolunteerService {
         return volunteerClient.getVolunteerByUsername(username);
     }
 
-
     public void createVolunteer(VolunteerDto volunteerDto) {
         volunteerDto.setPassword(passwordEncoder.encode(volunteerDto.getPassword()));
         volunteerClient.addNewVolunteer(volunteerDto);

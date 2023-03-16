@@ -2,7 +2,10 @@ package com.example.application.views;
 
 import com.example.application.components.appnav.AppNav;
 import com.example.application.components.appnav.AppNavItem;
+import com.example.application.data.Role;
+import com.example.application.data.entity.DogDto;
 import com.example.application.data.entity.VolunteerDto;
+import com.example.application.data.service.DogService;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.allwalks.MainAllWalks;
@@ -18,6 +21,7 @@ import com.example.application.views.home.MydogshelterView;
 import com.example.application.views.volunteers.edit.MainVolunteersView;
 import com.example.application.views.about.AboutUsView;
 import com.example.application.views.walkthedog.WalkthedogView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -43,10 +47,16 @@ public class MainLayout extends AppLayout {
     private AccessAnnotationChecker accessChecker;
     private VolunteerService volunteerService;
 
+
     public MainLayout(AuthenticatedUser authenticatedUser, AccessAnnotationChecker accessChecker, VolunteerService volunteerService) {
         this.authenticatedUser = authenticatedUser;
         this.accessChecker = accessChecker;
         this.volunteerService = volunteerService;
+        if (volunteerService.fetchVolunteers().isEmpty()){
+        volunteerService.createVolunteer( new VolunteerDto("Admin Name", "Admin Surname", "ADMIN", "ADMIN", "admin@dsf.pl", 987654321, Role.ADMIN));
+        volunteerService.createVolunteer( new VolunteerDto("Volunteer Name", "Volunteer Surname", "USER", "USER", "user@dsf.pl", 654321987, Role.USER));
+    }
+
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
         addHeaderContent();
@@ -127,8 +137,10 @@ public class MainLayout extends AppLayout {
         return nav;
     }
 
+
     private Footer createFooter() {
         Footer layout = new Footer();
+
         if(volunteerService.fetchVolunteers().size()>0) {
 
             Optional<VolunteerDto> maybeUser = authenticatedUser.get();
@@ -158,9 +170,13 @@ public class MainLayout extends AppLayout {
 
                 layout.add(userMenu);
             } else {
+                UI.getCurrent().navigate("register");
                 Anchor loginLink = new Anchor("login", "Sign in");
                 layout.add(loginLink);
+
             }
+        } else {
+          UI.getCurrent().navigate("login");
         }
         return layout;
     }
@@ -175,4 +191,7 @@ public class MainLayout extends AppLayout {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
+
+
+
 }

@@ -24,7 +24,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @PageTitle("Register")
 @Route(value = "register", layout = MainLayout.class)
 @AnonymousAllowed
-public class RegisterView extends Div{//Composite Vertical layout
+public class RegisterView extends Div{
 
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
@@ -48,14 +48,18 @@ public class RegisterView extends Div{//Composite Vertical layout
 
         cancel.addClickListener(e -> clearForm());
         save.addClickListener(e -> {
-            VolunteerDto volunteerDto = new VolunteerDto();
-            volunteerDto.setFirstName(firstName.getValue());
-            volunteerDto.setLastName(lastName.getValue());
-            volunteerDto.setName(name.getValue());
-            volunteerDto.setPassword(password.getValue());
-            volunteerDto.setEmail(email.getValue());
-            volunteerDto.setPhone(phone.getValue());
-            volunteerDto.setRole(Role.USER);
+            if(firstName.getValue().isEmpty()||lastName.getValue().isEmpty()||name.getValue().isEmpty()||password.getValue().isEmpty()
+                    ||email.getValue().isEmpty()||phone.isEmpty() ){
+                Notification.show("Fill all positions", 1000, Notification.Position.MIDDLE);
+            } else {
+                VolunteerDto volunteerDto = new VolunteerDto();
+                volunteerDto.setFirstName(firstName.getValue());
+                volunteerDto.setLastName(lastName.getValue());
+                volunteerDto.setName(name.getValue());
+                volunteerDto.setPassword(password.getValue());
+                volunteerDto.setEmail(email.getValue());
+                volunteerDto.setPhone(phone.getValue());
+                volunteerDto.setRole(Role.USER);
 
             if(volunteerService.fetchVolunteers().size()==0){
                 volunteerDto.setRole(Role.ADMIN);
@@ -71,7 +75,7 @@ public class RegisterView extends Div{//Composite Vertical layout
 
             clearForm();
             UI.getCurrent().navigate("login");
-        });
+        }});
     }
 
     private void clearForm() {

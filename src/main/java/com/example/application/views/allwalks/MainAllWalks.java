@@ -32,18 +32,15 @@ public class MainAllWalks extends VerticalLayout {
 
         allWalksView = new AllWalksView(this, walkService);
 
-        filter.setPlaceholder("Filter by Dog name..");
+        filter.setPlaceholder("Filter by volunteer name..");
         filter.setClearButtonVisible(true);
-
         filter.setValueChangeMode(ValueChangeMode.EAGER);
-        //todo
-       // filter.addValueChangeListener(e -> update());
+        filter.addValueChangeListener(e -> update());
         grid.setColumns("id", "walkDate", "volunteerName", "dogName");
 
         createNewWalk.addClickListener(e -> {
             UI.getCurrent().navigate(WalkthedogView.class);
         });
-
 
         HorizontalLayout toolbar = new HorizontalLayout(filter, createNewWalk);
         HorizontalLayout mainContent = new HorizontalLayout(grid, allWalksView);
@@ -55,7 +52,6 @@ public class MainAllWalks extends VerticalLayout {
 
         refresh();
         grid.asSingleSelect().addValueChangeListener(event -> allWalksView.setWalk(grid.asSingleSelect().getValue()));
-
     }
 
     public void refresh() {
@@ -63,7 +59,7 @@ public class MainAllWalks extends VerticalLayout {
     }
 
     private void update() {
-       // grid.setItems(walkService.getByName(filter.getValue()));
+        grid.setItems(walkService.fetchPlannedWalksForVolunteer(filter.getValue()));
     }
 
 

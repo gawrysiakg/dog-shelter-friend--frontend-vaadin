@@ -43,7 +43,6 @@ public class WalkthedogViewCard extends ListItem {
         Span subtitle = new Span();
         subtitle.addClassNames(FontSize.SMALL, TextColor.SECONDARY);
         subtitle.setText("About the dog...");
-
         Paragraph description = new Paragraph(
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.");
         description.addClassName(Margin.Vertical.MEDIUM);

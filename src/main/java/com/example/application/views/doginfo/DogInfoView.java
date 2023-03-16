@@ -80,7 +80,6 @@ public class DogInfoView extends VerticalLayout {
         H4 dogLiveLevel= new H4("Max live level: "+ dogInfo.getMaxLifeExpectancy());
         infoLayout.add(img, dogName, dogBarking, dogToChildren, dogPlayfulness, dogProtectiveness, dogTrainAbility, dogToOtherDogs, dogLiveLevel);
         infoLayout.setVisible(true);
-
     }
 
 }
