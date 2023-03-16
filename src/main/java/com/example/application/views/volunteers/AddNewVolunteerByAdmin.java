@@ -49,23 +49,28 @@ public class AddNewVolunteerByAdmin extends VerticalLayout {
         cancel.addClickListener(e -> clearForm());
         save.addClickListener(e -> {
             save();
-            Notification.show( " Volunteer details stored.");
             clearForm();
         });
     }
 
 
     private void save() {
-        VolunteerDto dto =new VolunteerDto();
-        dto.setId(Long.valueOf(id.getValue()));
-        dto.setFirstName(firstName.getValue());
-        dto.setLastName(lastName.getValue());
-        dto.setName(name.getValue());
-        dto.setPassword(password.getValue());
-        dto.setEmail(email.getValue());
-        dto.setPhone(phone.getValue());
-        dto.setRole(role.getValue());
-        volunteerService.createVolunteer(dto);
+        if(firstName.getValue().isEmpty()||lastName.getValue().isEmpty()||name.getValue().isEmpty()||password.getValue().isEmpty()
+                ||email.getValue().isEmpty()||phone.isEmpty() ){
+            Notification.show("Fill all positions", 1000, Notification.Position.MIDDLE);
+        } else {
+            VolunteerDto dto = new VolunteerDto();
+            dto.setId(Long.valueOf(id.getValue()));
+            dto.setFirstName(firstName.getValue());
+            dto.setLastName(lastName.getValue());
+            dto.setName(name.getValue());
+            dto.setPassword(password.getValue());
+            dto.setEmail(email.getValue());
+            dto.setPhone(phone.getValue());
+            dto.setRole(role.getValue());
+            volunteerService.createVolunteer(dto);
+            Notification.show( " Volunteer details stored.");
+        }
     }
 
     private void clearForm() {

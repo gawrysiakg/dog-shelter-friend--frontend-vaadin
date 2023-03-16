@@ -28,7 +28,7 @@ public class MainVolunteersView extends VerticalLayout {
     public MainVolunteersView(VolunteerService volunteerService){
         this.volunteerService = volunteerService;
         volunteersEditView = new VolunteersEditView(this, volunteerService);
-        filter.setPlaceholder("Filter by title...");
+        filter.setPlaceholder("Filter by name...");
         filter.setClearButtonVisible(true);
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.setClearButtonVisible(true);
@@ -36,8 +36,8 @@ public class MainVolunteersView extends VerticalLayout {
         grid.setColumns("id", "firstName", "lastName", "name", "password", "email", "phone", "role");
 
         addNewVolunteer.addClickListener(e -> {
-            grid.asSingleSelect().clear(); //"czyścimy" zaznaczenie
-            volunteersEditView.setVolunteer(new VolunteerDto());    //dodajemy nowy obiekt do formularza
+            grid.asSingleSelect().clear();
+            volunteersEditView.setVolunteer(new VolunteerDto());
         });
         HorizontalLayout toolbar = new HorizontalLayout(filter, addNewVolunteer);
         HorizontalLayout mainContent = new HorizontalLayout(grid, volunteersEditView);

@@ -41,7 +41,6 @@ public class MainMyWalks extends VerticalLayout {
         add(grid);
         setSizeFull();
         add(toolbar);
-
         grid.addSelectionListener(event ->{
                     cancelWalk.setVisible(true);
                 });
@@ -50,7 +49,6 @@ public class MainMyWalks extends VerticalLayout {
                     walkService.deleteWalk( grid.asSingleSelect().getValue().getId());
                     refresh();
                 });
-
             refresh();
     }
     private void refresh() {
