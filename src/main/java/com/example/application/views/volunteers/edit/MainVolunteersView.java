@@ -3,6 +3,9 @@ package com.example.application.views.volunteers.edit;
 import com.example.application.data.entity.VolunteerDto;
 import com.example.application.data.service.VolunteerService;
 import com.example.application.views.MainLayout;
+import com.example.application.views.volunteers.AddNewVolunteerByAdmin;
+import com.example.application.views.walkthedog.WalkthedogView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -37,7 +40,8 @@ public class MainVolunteersView extends VerticalLayout {
 
         addNewVolunteer.addClickListener(e -> {
             grid.asSingleSelect().clear();
-            volunteersEditView.setVolunteer(new VolunteerDto());
+           // volunteersEditView.setVolunteer(new VolunteerDto());
+            UI.getCurrent().navigate(AddNewVolunteerByAdmin.class);
         });
         HorizontalLayout toolbar = new HorizontalLayout(filter, addNewVolunteer);
         HorizontalLayout mainContent = new HorizontalLayout(grid, volunteersEditView);
