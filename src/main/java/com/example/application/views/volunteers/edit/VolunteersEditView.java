@@ -73,6 +73,14 @@ public class VolunteersEditView extends FormLayout {
         if (dto == null) {
             setVisible(false);
         } else {
+            id.setValue(String.valueOf(dto.getId()));
+            firstName.setValue(dto.getFirstName());
+            lastName.setValue(dto.getLastName());
+            name.setValue(dto.getName());
+            password.setValue(dto.getPassword());
+            email.setValue(dto.getEmail());
+            phone.setValue(dto.getPhone());
+            role.setValue(dto.getRole());
             setVisible(true);
             id.focus();
         }
