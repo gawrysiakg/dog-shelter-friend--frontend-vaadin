@@ -13,9 +13,17 @@
 
     padding: 0 var(--lumo-space-l);
 }
-.img1{
+/*.img1{*/
 
-    margin-top:  0px;
+/*    margin-top:  0px;*/
 
-    padding: 0 var(--lumo-space-l);
+/*    padding: 0 var(--lumo-space-l);*/
+/*}*/
+
+.img1 {
+    margin: 0 auto; /* Wyśrodkowuje obrazek poziomo */
+    display: block; /* Ustala obrazek jako blok, aby zadziałało wyśrodkowanie */
+    max-width: 70%; /* Ogranicza szerokość obrazka do szerokości jego kontenera */
+    max-height: 70%; /* Ogranicza wysokość obrazka do wysokości jego kontenera */
+    margin-top: 175px; /* Przesuwa obrazek w dół o 20 pikseli */
 }
