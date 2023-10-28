@@ -2,6 +2,7 @@ package com.example.application.views.about;
 
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -18,8 +19,8 @@ public class AboutUsView extends VerticalLayout {
     public AboutUsView() {
         setSpacing(false);
 
-        H2 header = new H2("The dog shelter in Bialystok invites everyone willing to visit our dogs.");
-        H2 header2 = new H2("If you want to become a volunteer" +
+        H3 header = new H3("The dog shelter in Bialystok invites everyone willing to visit our dogs.");
+        H3 header2 = new H3("If you want to become a volunteer" +
                 " and help us take care of animals and take them for a walk - just sign up.");
         header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
         header2.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
